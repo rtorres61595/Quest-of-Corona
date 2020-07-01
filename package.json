@@ -1,7 +1,6 @@
 {
-  "name": "1-Passport-Example",
+  "name": "quest-of-corona",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "npm run lint",
@@ -29,7 +28,16 @@
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.2",
-    "mocha": "^5.2.0",
+    "mocha": "^8.0.1",
     "prettier": "^1.13.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbbyNeko/Quest-of-Corona.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AbbyNeko/Quest-of-Corona/issues"
+  },
+  "homepage": "https://github.com/AbbyNeko/Quest-of-Corona#readme",
+  "description": ""
 }
