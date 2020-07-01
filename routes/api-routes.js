@@ -20,7 +20,7 @@ module.exports = function(app) {
 
   });
 
-  //POST to attack
+  //POST to block
   app.post("/rpg-api/users/:id/block", (req, res) => {
 
     //return report of who isDead
@@ -33,13 +33,25 @@ module.exports = function(app) {
 
   });
 
-  //POST to create RPG Character
+  //POST to create RPG Character Path
+  //Creates new path using character class as a template
   app.post("/rpg-api/users/:id/createCharacter/:characterId", (req, res) => {
 
+    //creates path
+
+    //sets path ID to user
+
+    //returns path ID
   });
 
   //GET character stats and path
-  app.get("/rpg-api/heroes/:id", (req, res) => {
+  //use user id to get path
+  app.get("/rpg-api/path/:id", (req, res) => {
+
+  });
+
+  //GETs user row
+  app.get("/rpg-api/users/:id", (req, res) => {
 
   });
 
