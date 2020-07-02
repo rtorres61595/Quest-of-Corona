@@ -3,6 +3,63 @@ const db = require("../models");
 const passport = require("../config/passport");
 
 module.exports = function(app) {
+
+  //POST to take damage
+  app.post("/rpg-api/users/:id/takeDamage", (req, res) => {
+
+    //return report of who isDead
+    //ex. { characterDead: true, enemyDead: false }
+
+  });
+
+  //POST to attack
+  app.post("/rpg-api/users/:id/attack", (req, res) => {
+
+    //return report of who isDead
+    //ex. { characterDead: true, enemyDead: false }
+
+  });
+
+  //POST to block
+  app.post("/rpg-api/users/:id/block", (req, res) => {
+
+    //return report of who isDead
+    //ex. { characterDead: true, enemyDead: false }
+
+  });
+
+  //POST to heal
+  app.post("/rpg-api/users/:id/heal", (req, res) => {
+
+  });
+
+  //POST to create RPG Character Path
+  //Creates new path using character class as a template
+  app.post("/rpg-api/users/:id/createCharacter/:characterId", (req, res) => {
+
+    //creates path
+
+    //sets path ID to user
+
+    //returns path ID
+  });
+
+  //GET character stats and path
+  //use user id to get path
+  app.get("/rpg-api/path/:id", (req, res) => {
+
+  });
+
+  //GETs user row
+  app.get("/rpg-api/users/:id", (req, res) => {
+
+  });
+
+  //GET enemy stats
+  app.get("/rpg-api/badguys/:id", (req, res) => {
+
+  });
+
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error

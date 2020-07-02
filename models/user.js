@@ -16,6 +16,23 @@ module.exports = function(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    pathId1: {
+      type: DataTypes.INTEGER
+    },
+    pathId2: {
+      type: DataTypes.INTEGER
+    },
+    pathId3: {
+      type: DataTypes.INTEGER
+    },
+    pathId4: {
+      type: DataTypes.INTEGER
     }
   });
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
