@@ -11,10 +11,10 @@ module.exports = function(sequelize, DataTypes) {
         health: {
             type: DataTypes.DOUBLE
         },
-        isGrunt: {
+        is_grunt: {
             type: DataTypes.BOOLEAN
         },
-        isBoss: {
+        is_boss: {
             type: DataTypes.BOOLEAN
         }
     });
