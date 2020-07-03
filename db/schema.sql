@@ -6,11 +6,15 @@ USE Quest_of_Corona_db;
 
 
 
-CREATE TABLE `user` (
-    `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `user_name` varchar(255) NOT NULL UNIQUE,
-    `password` varchar(255) NOT NULL,
-    PRIMARY KEY (`user_id`)
+CREATE TABLE user (
+    user_id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_name varchar(255) NOT NULL UNIQUE,
+    password varchar(255) NOT NULL,
+    path_id1 int NOT NULL ,
+    path_id2 int NOT NULL ,
+    path_id3 int NOT NULL ,
+    path_id4 int NOT NULL A,
+    PRIMARY KEY (user_id)
 );
 
 CREATE TABLE bad_guys
@@ -20,6 +24,8 @@ CREATE TABLE bad_guys
 	name VARCHAR(100) NOT NULL,
     health INTEGER(30) NOT NULL,
     attack INTEGER(30) NOT NULL,
+    is_grunt BOOLEAN DEFAULT false,
+    is_boss BOOLEAN DEFAULT false,
 	PRIMARY KEY (id)
 );
 
