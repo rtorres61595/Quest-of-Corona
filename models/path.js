@@ -1,11 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
 
     const Path = sequelize.define("Path", {
-        characterClassId: {
+        character_class_id: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        userId: {
+        user_id: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -15,31 +15,31 @@ module.exports = function(sequelize, DataTypes) {
         health: {
             type: DataTypes.DOUBLE
         },
-        specialSkill1: {
+        special_skill1: {
            type: DataTypes.STRING
         },
-        specialSkill2: {
+        special_skill2: {
             type: DataTypes.STRING
         },
         level: {
             type: DataTypes.INTEGER
         },
-        isComplete: {
+        is_complete: {
             type: DataTypes.BOOLEAN
         },
-        isDead: {
+        is_dead: {
             type: DataTypes.BOOLEAN
         },
-        isEnemyDead: {
+        Enemy_dead: {
             type: DataTypes.BOOLEAN
         },
         currentPath: {
             type: DataTypes.STRING
         },
-        blocked: {
+        block: {
             type: DataTypes.BOOLEAN
         },
-        heals: {
+        heal: {
             type: DataTypes.BOOLEAN
         }
     });

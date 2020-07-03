@@ -17,21 +17,21 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    username: {
+    user_name: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    pathId1: {
+    path_id1: {
       type: DataTypes.INTEGER
     },
-    pathId2: {
+    path_id2: {
       type: DataTypes.INTEGER
     },
-    pathId3: {
+    path_id3: {
       type: DataTypes.INTEGER
     },
-    pathId4: {
+    path_id4: {
       type: DataTypes.INTEGER
     }
   });
