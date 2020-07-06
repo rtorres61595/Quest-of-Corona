@@ -2,3 +2,63 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+
+footer {
+  align-content: space-around;
+}
+
+h1{
+  font-family:'Press Start 2P', cursive;
+  text-align: center;
+}
+
+h3{
+  font-family:'Press Start 2P', cursive;
+  text-align: center;
+  color:white;
+}
+
+h5{
+  font-family:'Press Start 2P', cursive;
+  text-align: center;
+  color:whitesmoke;
+}
+
+p{
+  font-family:'Press Start 2P', cursive; 
+  color: whitesmoke
+}
+
+header{
+  font-size: larger;
+}
+
+#rpgui-button{
+      text-align: center;
+      overflow: auto;
+      justify-content: center;
+      align-items: center;
+
+  }
+
+#content{
+  align-content: center;
+}
+
+#endcont{
+  min-height: 100%;
+  justify-content: center;
+}
+
+#endTitle{
+  margin-top: 50px;
+  color: rgb(194, 136, 136);
+}
+
+button{
+  display: block;
+  text-align: center; 
+  justify-content: space-between;
+} 
+
+  
