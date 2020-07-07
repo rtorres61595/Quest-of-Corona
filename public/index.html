@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Bootstrap Framework-->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <!--RPGUI Framework-->
+    <link rel="stylesheet" type="text/css" href="RPGUI/dist/rpgui.min.css" />
+    <script src="RPGUI/dist/rpgui.min.js"></script>
+    <!--UIKit Framework-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/css/uikit.min.css"
+    />
+    <!--CSS Stylesheet-->
+    <link rel="stylesheet" href="stylesheets/style.css" />
+    <!--Google Font-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <title>Quest of Corona</title>
+  </head>
+
+  <body>
+    <div
+      class="rpgui-container framed-golden rpgui-content"
+      style="width: 100%; height: 100%;"
+    >
+      <div
+        class="rpgui-container framed-golden-2"
+        style="width: 95%; text-align: center;"
+      >
+        <h1 id="header">Quest of Corona</h1>
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <hr class="golden" />
+      <div class="uk-container rpgui-container framed" style="width: 100%;">
+        <div class="uk-width-auto@m uk-grid-divider">
+          <div class="rgui-content">
+            <div clas>
+              <h3>Create User</h3>
+              <p>Username:</p>
+              <input
+                type="text"
+                placeholder="Please write your username"
+                id="userName"
+              />
+              <p>Password:</p>
+              <input
+                type="text"
+                placeholder="Please write your password"
+                id="userPass"
+              />
+            </div>
+
+            <div>
+              <h3>Create Character</h3>
+              <p>Name:</p>
+              <input
+                type="text"
+                placeholder="Please write your character's name"
+                id="charName"
+              />
+              </button>
+            </div>
+          </div>
+          <blockquote class="uk-column-span uk-flex uk-flex-center">
+            <p>Adventure lies before the path of those who choose it.</p>
+            <button class="rpgui-button uk-flex-between" type="button" id="signinBtn"><p>Sign In</p></button>
+            <hr>
+            <button class="rpgui-button uk-flex-between" type="button" id="loginBtn"><p>Log In</p></button>
+          </blockquote>
+        </div>
+      </div>
+      <footer
+        id="footer"
+        class="rpgui-container framed-grey"
+        style="bottom: 20px; position: fixed; width: 95%; text-align: center;"
+      >
+        <h5 class="uk-margin-remove">&copy; 2020</h5>
+        <div class="uk-grid">
+          <div class="uk-width-auto@s uk-width-1-2@m">
+            <h5 class="uk-margin-remove">Contributors:</h5>
+            <h5 class="uk-margin-small">
+              Limpioso, Abigail | Ponce, Melanie | Torres, Robert | Walker, Evan
+            </h5>
+          </div>
+          <div class="uk-width-auto@s uk-width-1-2@m">
+            <h5 class="uk-margin-remove">Powered By:</h5>
+            <h5 class="uk-margin-small">
+              RPGIU Framework | MySQL | D&D5e API | Placeholder | Placeholder
+            </h5>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
