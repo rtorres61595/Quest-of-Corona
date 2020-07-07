@@ -13,7 +13,7 @@ CREATE TABLE user (
     path_id1 int NOT NULL ,
     path_id2 int NOT NULL ,
     path_id3 int NOT NULL ,
-    path_id4 int NOT NULL A,
+    path_id4 int NOT NULL ,
     PRIMARY KEY (user_id)
 );
 
