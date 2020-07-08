@@ -4,34 +4,109 @@ const passport = require("../config/passport");
 
 module.exports = function(app) {
 
-  //POST to take damage
-  app.post("/rpg-api/users/takeDamage", (req, res) => {
+  //PUT to take damage
+  app.put("/rpg-api/users/takeDamage", (req, res) => {
 
+    db.Enemy.update({
+      text: req.body.text,
+      complete: req.body.complete
+    }, {
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbTodo) {
+      res.json(dbTodo);
+    })
+      .catch(function(err) {
+      // Whenever a validation or flag fails, an error is thrown
+      // We can "catch" the error to prevent it from being "thrown", which could crash our node app
+        res.json(err);
+      });
+    
+    
     //return report of who isDead
     //ex. { characterDead: true, enemyDead: false }
 
   });
 
-  //POST to attack
-  app.post("/rpg-api/users/attack", (req, res) => {
+  //PUT to attack
+  app.put("/rpg-api/users/attack", (req, res) => {
+    
 
+    db.Path.update({
+      attack: req.body.attack,
+    }, {
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbpath) {
+        if (dbpath.changedRows == 0) {
+          // If no rows were changed, then the ID must not exist, so 404
+          return res.status(404).end();
+        } else {
+          res.status(200).end();
+        }
+    })
+      .catch(function(err) {
+      // Whenever a validation or flag fails, an error is thrown
+      // We can "catch" the error to prevent it from being "thrown", which could crash our node app
+        res.json(err);
+      });
     //return report of who isDead
     //ex. { characterDead: true, enemyDead: false }
 
   });
 
-  //POST to block
-  app.post("/rpg-api/users/block", (req, res) => {
-
+  //PUT to block
+  app.put("/rpg-api/users/block", (req, res) => {
+    db.Path.update({
+      block: true
+    }, {
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbpath) {
+        if (dbpath.changedRows == 0) {
+          // If no rows were changed, then the ID must not exist, so 404
+          return res.status(404).end();
+        } else {
+          res.status(200).end();
+        }
+    })
+      .catch(function(err) {
+      // Whenever a validation or flag fails, an error is thrown
+      // We can "catch" the error to prevent it from being "thrown", which could crash our node app
+        res.json(err);
+      });
+    });
     //return report of who isDead
     //ex. { characterDead: true, enemyDead: false }
 
-  });
+  
 
-  //POST to heal
-  app.post("/rpg-api/users/heal", (req, res) => {
-
-  });
+  //PUT to heal
+  app.put("/rpg-api/users/heal", (req, res) => {
+    db.Path.update({
+      heal: true
+    }, {
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbpath) {
+        if (dbpath.changedRows == 0) {
+          // If no rows were changed, then the ID must not exist, so 404
+          return res.status(404).end();
+        } else {
+          res.status(200).end();
+        }
+    })
+      .catch(function(err) {
+      // Whenever a validation or flag fails, an error is thrown
+      // We can "catch" the error to prevent it from being "thrown", which could crash our node app
+        res.json(err);
+      });
+    });
+  
 
   //POST to create RPG Character Path
   //Creates new path using character class as a template
@@ -71,8 +146,6 @@ module.exports = function(app) {
   //use user id to get path
   app.get("/rpg-api/path/:id", (req, res) => {
 
-    
-
   });
 
   //GETs user row
@@ -82,25 +155,15 @@ module.exports = function(app) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
-
-      db.User.findOne({
-        where: {
-          id: req.params.id
-        }
-      }).then(dbUser => {
-
-          // Otherwise send back the user data
-          res.json({
-            email: dbUser.email,
-            id: dbUser.id,
-            path1: dbUser.path_id1,
-            path2: dbUser.path_id2,
-            path3: dbUser.path_id3,
-            path4: dbUser.path_id4
-          });
-
+      // Otherwise send back the user data
+      res.json({
+        email: req.user.email,
+        id: req.user.id,
+        path1: user.path_id1,
+        path2: user.path_id2,
+        path3: user.path_id3,
+        path4: user.path_id4
       });
-
     }
 
   });
@@ -130,9 +193,9 @@ module.exports = function(app) {
       email: req.body.email,
       password: req.body.password
     })
-      .then((dbUser) => {
-        //return user id and username
-        res.json({userId: dbUser.id, username: dbUser.username});
+      .then(() => {
+        //get id and return id
+        res.json();
       })
       .catch(err => {
         res.status(401).json(err);
@@ -143,12 +206,6 @@ module.exports = function(app) {
   app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
-  });
-
-  //sends data to Welcome page. Uses request body as object for welcome.handlebars
-  app.get("/welcome", (req, res) => {
-    console.log('body - '+JSON.stringify(req.body));
-    res.render("welcome", req.body);
   });
 
 };
