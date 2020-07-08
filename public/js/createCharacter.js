@@ -1,12 +1,13 @@
   // Getting references to our form and input
   const characterSelected = '';
   const userId = '';
+  const createCharForm = $("form.create-character");
 
-  signUpForm.on("submit", event => {
+  createCharForm.on("submit", event => {
     event.preventDefault();
     const data = {
       userId: userId.text().trim(),
-      characterSelected: characterSelected.text().trim()
+      characterClassId: characterSelected.text().trim()
     };
 
     if (!data.userId || !data.characterSelected) {

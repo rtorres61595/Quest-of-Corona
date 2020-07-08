@@ -22,25 +22,32 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING
         },
         level: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            defaultValue: 1
         },
         is_complete: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         is_dead: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         Enemy_dead: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN, 
+            defaultValue: false
         },
         currentPath: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            defaultValue: 'forest'
         },
         block: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         heal: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     });
 
