@@ -5,7 +5,7 @@ const passport = require("../config/passport");
 module.exports = function(app) {
 
   //POST to take damage
-  app.post("/rpg-api/users/:id/takeDamage", (req, res) => {
+  app.post("/rpg-api/users/takeDamage", (req, res) => {
 
     //return report of who isDead
     //ex. { characterDead: true, enemyDead: false }
@@ -13,7 +13,7 @@ module.exports = function(app) {
   });
 
   //POST to attack
-  app.post("/rpg-api/users/:id/attack", (req, res) => {
+  app.post("/rpg-api/users/attack", (req, res) => {
 
     //return report of who isDead
     //ex. { characterDead: true, enemyDead: false }
@@ -21,7 +21,7 @@ module.exports = function(app) {
   });
 
   //POST to block
-  app.post("/rpg-api/users/:id/block", (req, res) => {
+  app.post("/rpg-api/users/block", (req, res) => {
 
     //return report of who isDead
     //ex. { characterDead: true, enemyDead: false }
@@ -29,7 +29,7 @@ module.exports = function(app) {
   });
 
   //POST to heal
-  app.post("/rpg-api/users/:id/heal", (req, res) => {
+  app.post("/rpg-api/users/heal", (req, res) => {
 
   });
 
@@ -71,6 +71,8 @@ module.exports = function(app) {
   //use user id to get path
   app.get("/rpg-api/path/:id", (req, res) => {
 
+    
+
   });
 
   //GETs user row
@@ -80,15 +82,25 @@ module.exports = function(app) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
-      // Otherwise send back the user data
-      res.json({
-        email: req.user.email,
-        id: req.user.id,
-        path1: user.path_id1,
-        path2: user.path_id2,
-        path3: user.path_id3,
-        path4: user.path_id4
+
+      db.User.findOne({
+        where: {
+          id: req.params.id
+        }
+      }).then(dbUser => {
+
+          // Otherwise send back the user data
+          res.json({
+            email: dbUser.email,
+            id: dbUser.id,
+            path1: dbUser.path_id1,
+            path2: dbUser.path_id2,
+            path3: dbUser.path_id3,
+            path4: dbUser.path_id4
+          });
+
       });
+
     }
 
   });
@@ -118,9 +130,9 @@ module.exports = function(app) {
       email: req.body.email,
       password: req.body.password
     })
-      .then(() => {
-        //get id and return id
-        res.json();
+      .then((dbUser) => {
+        //return user id and username
+        res.json({userId: dbUser.id, username: dbUser.username});
       })
       .catch(err => {
         res.status(401).json(err);
@@ -131,6 +143,12 @@ module.exports = function(app) {
   app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
+  });
+
+  //sends data to Welcome page. Uses request body as object for welcome.handlebars
+  app.get("/welcome", (req, res) => {
+    console.log('body - '+JSON.stringify(req.body));
+    res.render("welcome", req.body);
   });
 
 };
