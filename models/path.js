@@ -1,3 +1,5 @@
+const db = require("../models");
+
 module.exports = function(sequelize, DataTypes) {
 
     const Path = sequelize.define("Path", {
@@ -13,6 +15,9 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DOUBLE
         },
         health: {
+            type: DataTypes.DOUBLE
+        },
+        full_health: {
             type: DataTypes.DOUBLE
         },
         special_skill1: {
@@ -50,6 +55,43 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: false
         }
     });
+
+    //resets health, heal and block when retrying path
+    Path.prototype.reset = function() {
+
+        this.is_dead = false;
+        this.heal = false;
+        this.block = false;
+        this.health = this.full_health;
+
+    };
+
+    //decreases Health based on damage taken
+    //returns new HP and if character isDead
+    Path.prototype.takeDamage = function(damagePts) {
+
+        this.health -= damagePts;
+        
+        //set is_dead to true if health reaches 0 or below
+        if(this.health <= 0) {
+            this.is_dead = true;
+            return {isDead: true, newHP: 0};
+        } else {
+            return {isDead: false, newHP: this.health};
+        }
+
+    };
+  
+    Path.prototype.levelUp = function() {
+        //Increases stats and resets Heals
+        this.heal = false;
+        this.block = false;
+
+        this.attack += 5;
+        this.health += 5;
+        this.full_health += 5;
+
+    };
 
     return Path;
 
