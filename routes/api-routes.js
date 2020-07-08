@@ -35,13 +35,36 @@ module.exports = function(app) {
 
   //POST to create RPG Character Path
   //Creates new path using character class as a template
-  app.post("/rpg-api/createCharacter", (req, res) => {
+  app.post("/rpg-api/createCharacter/", (req, res) => {
 
-    //creates path
+    //finding attack and health stats for this character class
+    db.Hero.findOne({
+      where: {
+        id: req.body.characterClassId
+      }
+    }).then(HeroClass => {
 
-    //sets path ID to user
+        //creates path
+        db.Path.create({
+          character_class_id: req.body.characterClassId,
+          user_id: req.body.userId,
+          attack: HeroClass.attack,
+          health: HeroClass.health
+        })
+        .then((dbPath) => {
+          //get id and return id
+          res.json({pathId: dbPath.id});
+          
+        })
+        .catch(err => {
+          res.status(401).json(err);
+        });
 
-    //returns path ID
+
+      // If none of the above, return the user
+      return done(null, HeroClass);
+    });
+
   });
 
   //GET character stats and path
@@ -52,6 +75,21 @@ module.exports = function(app) {
 
   //GETs user row
   app.get("/rpg-api/users/:id", (req, res) => {
+
+    if (!req.params.id) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the user data
+      res.json({
+        email: req.user.email,
+        id: req.user.id,
+        path1: user.path_id1,
+        path2: user.path_id2,
+        path3: user.path_id3,
+        path4: user.path_id4
+      });
+    }
 
   });
 
@@ -95,18 +133,4 @@ module.exports = function(app) {
     res.redirect("/");
   });
 
-  // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", (req, res) => {
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        id: req.user.id
-      });
-    }
-  });
 };

@@ -12,13 +12,15 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DOUBLE
         },
         is_grunt: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         is_boss: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     });
 
-    return rpgCharacter;
+    return Enemy;
 
 };
