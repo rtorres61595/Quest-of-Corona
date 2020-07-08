@@ -1,8 +1,8 @@
 $(document).ready(() => {
   // Getting references to our form and inputs
-  const loginForm = $("form.login");
-  const emailInput = $("input#email-input");
-  const passwordInput = $("input#password-input");
+  const loginForm = $("form#login");
+  const emailInput = $("input#email");
+  const passwordInput = $("input#userPass");
 
   // When the form is submitted, we validate there's an email and password entered
   loginForm.on("submit", event => {
@@ -22,14 +22,14 @@ $(document).ready(() => {
     passwordInput.val("");
   });
 
-  // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
+  // loginUser does a post to our "rpg-api/login" route and if successful, redirects us the the members page
   function loginUser(email, password) {
-    $.post("/api/login", {
+    $.post("/rpg-api/login", {
       email: email,
       password: password
     })
       .then(() => {
-        window.location.replace("/members");
+        window.location.replace("/welcome");
         // If there's an error, log the error
       })
       .catch(err => {
@@ -37,3 +37,4 @@ $(document).ready(() => {
       });
   }
 });
+
