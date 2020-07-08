@@ -39,6 +39,32 @@ module.exports = function(sequelize, DataTypes) {
   User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
   };
+
+  User.prototype.attackEnemy(attacker, enemy) {
+    //Subtracts attack pts of character from enemy HP
+
+  };
+
+  User.prototype.heal(character) {
+      //Sets Heals to true
+
+  };
+
+  User.prototype.block(character) {
+      //Set Blocked to true
+
+  };
+
+  User.prototype.takeDamage(character, enemy) { 
+      //Subtracts attacks pts of enemy from character HP
+
+  };
+  
+  User.prototype.levelUp(character) {
+      //Increases stats and resets Heals
+      
+  }
+
   // Hooks are automatic methods that run during various phases of the User Model lifecycle
   // In this case, before a User is created, we will automatically hash their password
   User.addHook("beforeCreate", user => {

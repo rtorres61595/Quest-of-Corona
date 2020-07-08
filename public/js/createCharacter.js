@@ -22,7 +22,7 @@
 function createCharacter(userId, characterId) {
     $.post("/rpg-api/createCharacter", {
       userId: userId,
-      characterId: characterId
+      characterClassId: characterId
     })
       .then(() => {
        //Updates user with Path ID
