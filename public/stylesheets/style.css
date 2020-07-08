@@ -106,3 +106,26 @@ button{
   position: absolute;
   margin-bottom: 50px;
 }
+
+#welcomediv{
+  text-align: center;
+}
+
+#choosechar{
+  text-align: center;
+}
+
+#charselect{
+  justify-content: space-between;
+}
+
+#startBtn{
+  align-content: center;
+}
+
+#plottext{
+  position: absolute; 
+  bottom: 20px;
+  width: 98%;
+  height:35%;
+}
