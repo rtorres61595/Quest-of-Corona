@@ -6,52 +6,15 @@ module.exports = function(app) {
 
   //PUT to take damage
   app.put("/rpg-api/users/takeDamage", (req, res) => {
+    //Subtracts attacks pts of enemy from character HP
 
-    db.Enemy.update({
-      text: req.body.text,
-      complete: req.body.complete
-    }, {
-      where: {
-        id: req.body.id
-      }
-    }).then(function(dbTodo) {
-      res.json(dbTodo);
-    })
-      .catch(function(err) {
-      // Whenever a validation or flag fails, an error is thrown
-      // We can "catch" the error to prevent it from being "thrown", which could crash our node app
-        res.json(err);
-      });
-    
-    
-    //return report of who isDead
-    //ex. { characterDead: true, enemyDead: false }
 
   });
 
   //PUT to attack
   app.put("/rpg-api/users/attack", (req, res) => {
-    
+  //Subtracts attack pts of character from enemy HP
 
-    db.Path.update({
-      attack: req.body.attack,
-    }, {
-      where: {
-        id: req.body.id
-      }
-    }).then(function(dbpath) {
-        if (dbpath.changedRows == 0) {
-          // If no rows were changed, then the ID must not exist, so 404
-          return res.status(404).end();
-        } else {
-          res.status(200).end();
-        }
-    })
-      .catch(function(err) {
-      // Whenever a validation or flag fails, an error is thrown
-      // We can "catch" the error to prevent it from being "thrown", which could crash our node app
-        res.json(err);
-      });
     //return report of who isDead
     //ex. { characterDead: true, enemyDead: false }
 
@@ -79,10 +42,7 @@ module.exports = function(app) {
         res.json(err);
       });
     });
-    //return report of who isDead
-    //ex. { characterDead: true, enemyDead: false }
 
-  
 
   //PUT to heal
   app.put("/rpg-api/users/heal", (req, res) => {
@@ -106,6 +66,21 @@ module.exports = function(app) {
         res.json(err);
       });
     });
+
+  //PUT to level up user
+  app.put("/rpg-api/levelUp", (req, res) => {
+
+    db.Path.findOne({
+      where: {
+        id: req.body.id
+      }
+    }).then(foundPath => {
+
+      foundPath.levelUp(req.body.specialSkill);
+
+    });
+  
+  });
   
 
   //POST to create RPG Character Path
@@ -145,6 +120,14 @@ module.exports = function(app) {
   //GET character stats and path
   //use user id to get path
   app.get("/rpg-api/path/:id", (req, res) => {
+
+    if (!req.params.id) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the user data
+      res.json({});
+    }
 
   });
 
@@ -193,9 +176,9 @@ module.exports = function(app) {
       email: req.body.email,
       password: req.body.password
     })
-      .then(() => {
+      .then((dbUser) => {
         //get id and return id
-        res.json();
+        res.render("welcome", {id: dbUser.id, username: dbUser.username})
       })
       .catch(err => {
         res.status(401).json(err);
