@@ -30,14 +30,19 @@
 <body>
     <div class="rpgui-container framed" id="endcont" style="height: 100%; width: 100%;">
             <h1 id="endTitle">The End</h1>
-            <img src="http://pixelartmaker.com/art/a7bb525aebaeabd.png" id="endImage">
-             <hr class="golden"/>
+            <div id="endImage">
+            <img src="http://pixelartmaker.com/art/a7bb525aebaeabd.png" style="text-align: center; vertical-align: middle;">
+            </div>
+            <br>
              <div style="justify-content: space-between;">
+                <!--Takes you back to welcome.handlebars/previous lvl-->
                 <button class="rpgui-button uk-flex-between" type="button" id="tryagaintBtn"><p>Try Again</p></button>
+                <!--Takes you back to index.html-->
                 <button class="rpgui-button uk-flex-between" type="button" id="endBtn"><p>Load Game</p></button>
             </div>
     </div>
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/login.js"></script>
     <script src="js/signup.js"></script>
