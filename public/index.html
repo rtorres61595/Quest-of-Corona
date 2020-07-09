@@ -35,28 +35,33 @@
       <div class="uk-width-auto@m uk-grid-divider">
         <div class="rgui-content" id="topindexdiv">
           <div id="signupdiv">
+
             <form class="signup">
+
               <h3>Sign Up</h3>
               <p>Email:</p>
-              <input type="text" placeholder="Please write your e-mail" id="email" />
+              <input type="text" placeholder="Please write your e-mail" id="signEmail" />
               <p>Password:</p>
-              <input type="text" placeholder="Please write your password" id="userPass" />
+              <input type="password" placeholder="Please write your password" id="signPass" />
               <p>Character Name:</p>
-              <input type="text" placeholder="Please write your character's name" id="userName" />
+
+              <input type="text" placeholder="Please write your character's name" id="signName" />
             </form>
             <br>
-            <button class="rpgui-button uk-flex-between" type="click" >
+            <button class="rpgui-button uk-flex-between" type="click" id="signBtn">
+
               <p>Sign Up</p>
             </button>
           </div>
-       
           <div id="logindiv">
+
             <form class="login">
+
             <h3>Log In</h3>
             <p>Name:</p>
-            <input type="text" placeholder="Please write your character's name" id="username" />
+            <input type="text" placeholder="Please write your character's name" id="loginName" />
             <p>Password:</p>
-            <input type="text" placeholder="Please write your password" id="userPass" />
+            <input type="text" placeholder="Please write your password" id="loginPass" />
             </form>
             <br>
             <button class="rpgui-button uk-flex-between" type="click" id="loginBtn">
@@ -90,7 +95,7 @@
       </div>
     </footer>
   </div>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="js/login.js"></script>
   <script src="js/signup.js"></script>
