@@ -151,3 +151,43 @@ button{
   bottom: 0%;
   align-content: center;
 }
+
+#mainBattleDiv{
+  width: 100%; 
+  height: 75%;
+}
+
+
+#statsdiv{
+  float:left;
+  max-width: 30%;
+  height: 75%;
+}
+
+#bossdiv{
+  float: right;
+  width: 60%;
+  height: 20%;
+}
+
+#hp-bar{
+  position: absolute;
+  bottom:3%;
+  left: 0%;
+}
+
+#bossimage{
+  width: 100%;
+  position: absolute;
+  top:170%;
+}
+
+li{
+font-family:'Press Start 2P', cursive; 
+}
+
+h2{
+  font-family:'Press Start 2P', cursive; 
+  text-align: center;
+  font-size: inherit;
+}
