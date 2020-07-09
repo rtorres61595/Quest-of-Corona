@@ -5,6 +5,8 @@ const session = require("express-session");
 const passport = require("./config/passport");
 const router = express.Router();
 
+
+
 // Setting up port and requiring models for syncing
 const PORT = process.env.PORT || 8080;
 const db = require("./models");
@@ -21,10 +23,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Set Handlebars.
+const exphbs = require("express-handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 // Requiring our routes
 require("./routes/html-routes.js")(app);
-// require("./routes/api-routes.js")(app);
-
+require("./routes/api-routes.js")(app);
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
