@@ -26,7 +26,7 @@ function createCharacter(userId, characterId) {
     })
       .then(() => {
        //Updates user with Path ID
-
+          
       })
       .catch(err => {
         console.log(err);
