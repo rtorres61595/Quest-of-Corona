@@ -48,7 +48,16 @@ header{
 
 #endcont{
   min-height: 100%;
-  justify-content: center;
+  display: block; 
+  left: auto; 
+  margin-right: auto;
+  text-align: center;
+}
+
+#endImage{
+  display: block; 
+  left: auto; 
+  margin-right: auto;
 }
 
 #endTitle{
@@ -60,6 +69,8 @@ button{
   display: block;
   text-align: center; 
   justify-content: space-between;
+  padding: 19px;
+  text-decoration-color: black;
 } 
 
 #signupdiv{
@@ -122,7 +133,6 @@ button{
 #startBtn{
   align-content: center;
 }
-
 #plottext{
   position: absolute; 
   bottom: 20px;
