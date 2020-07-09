@@ -12,8 +12,6 @@ $(document).ready(() => {
   signUpForm.on("submit", event => {
     event.preventDefault();
 
-    console.log("sign up");
-    
     const userData = {    
         // removed the trim because there was a error 
       email: emailInput.val(),
@@ -30,18 +28,17 @@ $(document).ready(() => {
     passwordInput.val("");
     usernameInput.val("");
   });
-  console.log("random")
+
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   function signUpUser(email, password, username) {
-    console.log("signing up");
 
     $.post("/rpg-api/signup", {
       username: username,
       email: email,
       password: password
     }).then(function(){
-      window.location.replace("/welcome")
+      loginUser(username, password);
     })
     .catch(handleLoginErr);
   }
@@ -55,7 +52,7 @@ $(document).ready(() => {
   
   // When the form is submitted, we validate there's an email and password entered
   loginForm.on("submit", event => {
-    console.log("hello")
+
     event.preventDefault();
     const userData = {
       username: loginNameInput.val().trim(),
@@ -77,11 +74,9 @@ $(document).ready(() => {
     $.post("/rpg-api/login", {
       username: username,
       password: password
+    }).then(function(){
+      window.location = "/welcome";
     })
-      .then(() => {
-        window.location.replace("/welcome");
-        // If there's an error, log the error
-      })
       .catch(err => {
         console.log(err);
       });
