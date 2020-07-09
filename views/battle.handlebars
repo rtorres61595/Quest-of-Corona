@@ -1,14 +1,16 @@
-<div class="rpgui-container framed" style="position: relative;">
+<div class="rpgui-container framed" style="width: 100%; height: 100%;">
         <!--Top Div/user and boss information-->
-        <div class="container">
+        <div id="mainBattleDiv" >
             <div class="row">
-                <div class="col-4">
-                    <div class="rpgui-container framed-golden-2" style="margin:15px 0px 0px 0px">
-                        <h1>USER Stats</h1>
+                <div class="col-4" >
+                    <div class="rpgui-container framed-golden-2 rgui-content" id="statsdiv">
+                        <h2>{username} Stats</h2 style="color:black;">
+                            <hr class="golden" style="color:gold">
                         <ul>
                             <li>at each turn, add line of action</li>
                             <li>i.e - enemy rushed forward and stung user</li>
                         </ul>
+                       
                         <!--user health bar-->
                         <div id="hp-bar" data-value="1" class="rpgui-progress green" data-rpguitype="progress">
                             <div class=" rpgui-progress-track">
@@ -24,10 +26,10 @@
 
                 </div>
                 <br>
-                <div class="col-7">
-                    
-                    <div class="rpgui-container framed-golden-2" style="margin:15px 0px 0px 50px; width:50%">
-                        <h3>Boss HP</h3>
+                <div class="col-7" >
+
+                    <div class="rpgui-container framed-golden-2" id="bossdiv">
+                        <h1>{enemy} HP</h1>
                         <!--Boss health bar-->
                         <div id="hp-bar" data-value="1" class="rpgui-progress red" data-rpguitype="progress">
                             <div class=" rpgui-progress-track">
@@ -44,10 +46,10 @@
                     <br>
                     <br>
                     <br>
-                    <hr class="golden">
                     <br>
-                    <div style="margin:15px 0px 0px 50px;">
-                    <img src="https://www.raritanheadwaters.org/wp-content/uploads/2018/01/large-image-placeholder.jpg" style="width:100%;height:auto ">
+                    <div>
+                        <img src="https://www.raritanheadwaters.org/wp-content/uploads/2018/01/large-image-placeholder.jpg"
+                         id="bossimage">
                     </div>
                 </div>
             </div>
@@ -57,20 +59,20 @@
         <hr class="golden">
         <br>
         <!--Bottom div/action options-->
-        <div class="container">
+        <div id="actionDiv">
             <div class="row rpgui-center">
                 <div class="col">
-                    <button type="button" class="rpgui-button" style="width:32%;">
+                    <button id="attackBtn" type="button" class="rpgui-button" style="width:32%;">
                         <p>Attack</p>
                     </button>
                 </div>
                 <div class="col">
-                    <button type="button" class="rpgui-button" style="width:32%;">
+                    <button id="blockBtn" type="button" class="rpgui-button" style="width:32%;">
                         <p>Block</p>
                     </button>
                 </div>
                 <div class="col">
-                    <button type="button" class="rpgui-button" style="width:32%;">
+                    <button id="healBtn" type="button" class="rpgui-button" style="width:32%;">
                         <p>Heal</p>
                     </button>
                 </div>
