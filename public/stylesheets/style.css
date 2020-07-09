@@ -137,5 +137,11 @@ button{
   position: absolute; 
   bottom: 20px;
   width: 98%;
-  height:35%;
+  height:45%;
+}
+
+#plotNextBtn{
+  position: absolute;
+  bottom: 50%;
+  right: 1.5%;
 }
