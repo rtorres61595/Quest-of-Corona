@@ -6,7 +6,14 @@ const router = express.Router();
 const db = require("../models");
 const passport = require("../config/passport");
 
-// module.exports = function(app) {
+// Requiring path to so we can use relative routes to our HTML files
+const path = require("path");
+
+// Requiring our custom middleware for checking if a user is logged in
+const isAuthenticated = require("../config/middleware/isAuthenticated");
+
+
+//API ROUTES
 
   //PUT to take damage
   router.put("/rpg-api/users/takeDamage", (req, res) => {
@@ -182,7 +189,8 @@ const passport = require("../config/passport");
     })
       .then((dbUser) => {
         //get id and return id
-        res.render("welcome", {id: dbUser.id, username: dbUser.username})
+        console.log("id - "+dbUser.id);
+        res.redirect('/welcome');
       })
       .catch(err => {
         res.status(401).json(err);
@@ -195,6 +203,21 @@ const passport = require("../config/passport");
     res.redirect("/");
   });
 
-// };
+  //HTML ROUTES
+  router.get("/", (req, res) => {
+    // send the html file of index.html
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  });
+
+  router.get("/end", (req, res) => {
+    //send the end.html file
+    res.sendFile(path.join(__dirname, "../public/end.html"));
+  });
+
+  // Here we've add our isAuthenticated middleware to this route.
+  // If a user who is not logged in tries to access this route they will be redirected to the signup page
+  router.get("/welcome", isAuthenticated, (req, res) => {
+    res.render("welcome", { id: req.user.id, username: req.user.username });
+  });
 
 module.exports = router
