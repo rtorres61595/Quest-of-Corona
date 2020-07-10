@@ -30,8 +30,9 @@ p{
   color: whitesmoke
 }
 
-header{
-  font-size: larger;
+#header{
+  font-size: 2.5em;
+  padding-top:20px;
 }
 
 #rpgui-button{
@@ -120,6 +121,7 @@ button{
 
 #welcomediv{
   text-align: center;
+  margin-top:140px;
 }
 
 #choosechar{
@@ -194,11 +196,15 @@ h2{
 
 #charselect div {
   display: inline-block;
-  width:22%;
+  width:24%;
 }
 
 #startBtn {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.golden {
+  margin-left:10%;
 }
