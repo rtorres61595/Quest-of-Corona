@@ -15,26 +15,26 @@ module.exports = function(sequelize, DataTypes) {
 
     Hero.create({
         name: 'Covid Knight',
-        attack: 45,
-        health: 3
+        attack: 3,
+        health: 45
     });
 
     Hero.create({
         name: 'Covid Ninja',
-        attack: 30,
-        health: 4
+        attack: 4,
+        health: 30
     });
 
     Hero.create({
         name: 'Covid Mage',
-        attack: 40,
-        health: 5
+        attack: 3,
+        health: 45
     });
 
     Hero.create({
         name: 'Covid Warlock',
-        attack: 30,
-        health: 6
+        attack: 4,
+        health: 30
     });
 
     Hero.sync();
