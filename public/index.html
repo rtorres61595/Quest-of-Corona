@@ -20,7 +20,7 @@
 </head>
 
 <body>
-  <div class="rpgui-container framed-golden rpgui-content" style="width: 100%; height: 100%;">
+  <div class="rpgui-container framed-golden rpgui-content rpgui-cursor-default" style="width: 100%; height: 100%; overflow-y:scroll">
     <div class="rpgui-container framed-golden-2" style="width: 95%; text-align: center;">
       <h1 id="header">Quest of Corona</h1>
     </div>
@@ -31,8 +31,8 @@
     <br />
     <br />
     <hr class="golden" />
-    <div class="uk-container rpgui-container framed" id="mainindexdiv">
-      <div class="uk-width-auto@m uk-grid-divider">
+    <div class="rpgui-container framed" id="mainindexdiv">
+      <div class="uk-width-expand@m" id="indexdiv">
         <div class="rgui-content" id="topindexdiv">
           <div id="signupdiv">
             <form class="signup">
@@ -42,8 +42,8 @@
               <p>Password:</p>
               <input type="password" placeholder="Please write your password" id="signPass" />
               <p>Character Name:</p>
-
               <input type="text" placeholder="Please write your character's name" id="signName" />
+              <br>
               <button class="rpgui-button uk-flex-between" type="click" id="signBtn">
                 <p>Sign Up</p>
               </button>
