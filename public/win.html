@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bootstrap Framework-->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <!--RPGUI Framework-->
+    <link rel="stylesheet" type="text/css" href="RPGUI/dist/rpgui.min.css" />
+    <script src="RPGUI/dist/rpgui.min.js"></script>
+    <!--UIKit Framework-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/css/uikit.min.css"
+    />
+    <!--CSS Stylesheet-->
+    <link rel="stylesheet" href="stylesheets/style.css" />
+    <!--Google Font-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <title>Quest of Corona</title>
+</head>
+<body>
+    <div class="rpgui-container framed" id="endcont" style="height: 100%; width: 100%;">
+            <h1 id="winTitle">Congratulations!</h1>
+            <div id="endImage">
+            <img src="images/crown.png" id="winImage">
+            </div>
+            <br>
+            <div> 
+              <p id="wintext">There’s a crowd of people waiting at the entrance of your hometown as they see your form walking from the distance. Hushed whispers turn to thunderous roars and applause as recognition falls on their faces. Covered in your bloodied clothing, you carry back the head of Corona. 
+              </p>
+            </div>
+             <div style="justify-content: space-between;">
+                <!--Takes you back to index.html-->
+                <button class="rpgui-button uk-flex-between" type="button" id="endBtn"><p>Load Game</p></button>
+            </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
