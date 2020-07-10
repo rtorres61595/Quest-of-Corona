@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        character_name: {
+            type: DataTypes.STRING,
+            allowNull:false
+        },
         attack: {
             type: DataTypes.DOUBLE
         },
@@ -54,22 +58,6 @@ module.exports = function(sequelize, DataTypes) {
         this.heal = false;
         this.block = false;
         this.health = this.full_health;
-
-    };
-
-    //decreases Health based on damage taken
-    //returns new HP and if character isDead
-    Path.prototype.takeDamage = function(damagePts) {
-
-        this.health -= damagePts;
-        
-        //set is_dead to true if health reaches 0 or below
-        if(this.health <= 0) {
-            this.is_dead = true;
-            return {isDead: true, newHP: 0};
-        } else {
-            return {isDead: false, newHP: this.health};
-        }
 
     };
   

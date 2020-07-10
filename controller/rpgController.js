@@ -16,8 +16,28 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
   //PUT to take damage
   router.put("/rpg-api/users/takeDamage", (req, res) => {
-    //Subtracts attacks pts of enemy from character HP
 
+    //find enemy class
+    db.Enemy.findOne({
+      where: {
+        id: req.body.enemyId
+      }
+    }).then(enemyFound => {
+
+      if(enemyFound != null) {
+
+        //get enemy attack pts
+        //Subtracts attacks pts of enemy from character HP
+        let newCharHP = parseFloat(req.body.characterHP) - parseFloat(enemyFound.attack);
+
+        //return new Character HP
+        res.json({characterHP: newCharHP});
+
+      } else {
+        res.status(404).end();
+      }
+
+    })
 
   });
 
@@ -96,6 +116,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
         //creates path
         db.Path.create({
+          character_name: HeroClass.name,
           character_class_id: req.body.characterClassId,
           user_id: req.body.userId,
           attack: HeroClass.attack,
@@ -240,7 +261,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
             }
           }).then(pathInProgress => {
             
-              res.render("plot", { 
+              res.render("plot", {
                 userId: pathInProgress.user_id, 
                 pathId: pathInProgress.id, 
                 attack: pathInProgress.attack, 
