@@ -12,7 +12,6 @@ const path = require("path");
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
-
 //API ROUTES
 
   //PUT to take damage
@@ -93,7 +92,6 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
   
   });
   
-
   //POST to create RPG Character Path
   //Creates new path using character class as a template
   router.post("/rpg-api/createCharacter/", (req, res) => {
