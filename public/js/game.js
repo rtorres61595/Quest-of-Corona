@@ -1,10 +1,10 @@
 const attackBtn = $("#attack-enemy");
 const defendBtn = $("#block");
 const healBtn = $("#heal");
-const nextLvlBtn = "";
+const nextLvlBtn = $("#next-lvl-btn");
 
-const userId = '';
-const pathId = '';
+const userId = localStorage.getItem("userId");
+const pathId = localStorage.getItem("pathId");
 
 //uses up heal
 healBtn.on("click", event => {
@@ -33,6 +33,18 @@ defendBtn.on("click", event => {
         .catch(err => {
           console.log(err);
         });
+
+});
+
+
+attackBtn.on("click", event => {
+
+    //Subtracts attack pts of character from enemy HP
+  
+
+  
+      //return report of who isDead and how much enemy HP is left
+      //ex. { characterDead: true, enemyDead: false, enemyHP: 30 }
 
 });
 

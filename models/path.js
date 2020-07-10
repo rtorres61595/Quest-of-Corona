@@ -16,16 +16,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         health: {
             type: DataTypes.DOUBLE
-        },
-        full_health: {
-            type: DataTypes.DOUBLE
-        },
-        special_skill1: {
-           type: DataTypes.STRING
-        },
-        special_skill2: {
-            type: DataTypes.STRING
-        },
+        }, 
         level: {
             type: DataTypes.INTEGER,
             defaultValue: 1

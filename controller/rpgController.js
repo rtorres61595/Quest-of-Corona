@@ -21,15 +21,6 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
   });
 
-  //PUT to attack
-  router.put("/rpg-api/users/attack", (req, res) => {
-  //Subtracts attack pts of character from enemy HP
-
-    //return report of who isDead
-    //ex. { characterDead: true, enemyDead: false }
-
-  });
-
   //PUT to block
   router.put("/rpg-api/users/block", (req, res) => {
     db.Path.update({
@@ -112,16 +103,13 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
         })
         .then((dbPath) => {
           //get id and return id
-          res.json({pathId: dbPath.id});
+          res.json({id: dbPath.id});
           
         })
         .catch(err => {
           res.status(401).json(err);
         });
 
-
-      // If none of the above, return the user
-      return done(null, HeroClass);
     });
 
   });
@@ -163,18 +151,18 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
   //GET enemy stats
   router.get("/rpg-api/badguys/:id", (req, res) => {
 
+    db.Enemy.findOne({
+      where: {
+        id: req.body.id
+      }
+    }).then(foundEnemy => {
+
+      res.json(foundEnemy);
+
+    });
+
   });
 
-  // Using the passport.authenticate middleware with our local strategy.
-  // If the user has valid login credentials, send them to the members page.
-  // Otherwise the user will be sent an error
-  router.post("/rpg-api/login", passport.authenticate("local"), (req, res) => {
-    // Sending back a password, even a hashed password, isn't a good idea
-    res.json({
-      email: req.user.email,
-      id: req.user.id
-    });
-  });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
@@ -194,6 +182,12 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
         res.status(401).json(err);
       });
   });
+
+  router.post("/rpg-api/login", passport.authenticate("local"), function(req, res) {
+    console.log("logging in");
+    res.json(req.user);
+  });
+
 
   // Route for logging user out
   router.get("/logout", (req, res) => {
@@ -215,7 +209,47 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   router.get("/welcome", isAuthenticated, (req, res) => {
-    res.render("welcome", { id: req.user.id, username: req.user.username });
+
+    //Looks for path connected to user that is incomplete
+    db.Path.findOne({
+      where: {
+        user_id: req.user.id,
+        is_complete: false
+      }
+    }).then(pathResult => {
+      return pathResult;
+    }).then(pathInProgress => {
+
+      if(pathInProgress != null) {
+        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: pathInProgress.id, attack: pathInProgress.attack, health: pathInProgress.health, characterClassId: pathInProgress.character_class_id });
+      } else {
+        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: 'none'});
+      }
+
+    });
+
+  });
+
+  //Renders start of path when game starts
+  router.get("/plot/:pathId", isAuthenticated, (req, res) => {
+
+      //Looks for path loaded and starts at current path
+          db.Path.findOne({
+            where: {
+              id: req.params.pathId
+            }
+          }).then(pathInProgress => {
+            
+              res.render("plot", { 
+                userId: pathInProgress.user_id, 
+                pathId: pathInProgress.id, 
+                attack: pathInProgress.attack, 
+                health: pathInProgress.health, 
+                characterClassId: pathInProgress.character_class_id,
+                currentPath: pathInProgress.currentPath
+              });
+            
+          });
   });
 
 module.exports = router
