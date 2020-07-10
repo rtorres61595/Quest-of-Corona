@@ -191,3 +191,14 @@ h2{
   text-align: center;
   font-size: inherit;
 }
+
+#charselect div {
+  display: inline-block;
+  width:22%;
+}
+
+#startBtn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
