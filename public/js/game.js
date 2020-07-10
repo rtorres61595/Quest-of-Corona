@@ -36,15 +36,26 @@ defendBtn.on("click", event => {
 
 });
 
-
+//On click of attack button, lower enemy HP and show message as appropriate
 attackBtn.on("click", event => {
 
-    //Subtracts attack pts of character from enemy HP
-  
+    event.preventDefault();
+    let report = attack();
 
-  
-      //return report of who isDead and how much enemy HP is left
-      //ex. { characterDead: true, enemyDead: false, enemyHP: 30 }
+    if(report.characterDead) {
+      //show message that you lost
+
+      //redirect to end.html in a minute
+      
+    } else if(report.enemyDead) {
+      //show next button
+
+    } else {
+      //update enemy HP
+
+      //trigger enemy attack
+
+    }
 
 });
 
@@ -62,4 +73,32 @@ nextLvlBtn.on("click", event => {
       });
 
 });
+
+
+function attack() {
+
+  //Get Attack
+
+  //Get Enemy HP
+
+  //Subtracts attack pts of character from enemy HP
+  
+  
+      //return report of who isDead and how much enemy HP is left
+      //ex. { characterDead: true, enemyDead: false, enemyHP: 30 }
+
+}
+
+function enemysTurn() {
+
+      //get Enemy class ID to send in request as enemyId
+
+      //get characterHP to send in request as characterHP
+
+      //do post to /rpg-api/users/takeDamage and it should return new Character HP
+  
+      //return report of who isDead and how much character HP is left
+      //ex. { characterDead: true, enemyDead: false, characterHP: 30 }
+
+}
 
