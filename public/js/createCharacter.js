@@ -27,8 +27,8 @@ function createCharacter(userId, characterId) {
       userId: userId,
       characterClassId: characterId
     })
-      .then(() => {
-        window.location = "/plot/"+userId;   
+      .then((path) => {
+        window.location = "/plot/"+path.id;   
       })
       .catch(err => {
         console.log(err);

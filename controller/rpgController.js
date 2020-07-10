@@ -103,7 +103,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
         })
         .then((dbPath) => {
           //get id and return id
-          res.json({pathId: dbPath.id});
+          res.json({id: dbPath.id});
           
         })
         .catch(err => {
@@ -166,39 +166,6 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
   });
 
-  // Using the passport.authenticate middleware with our local strategy.
-  // If the user has valid login credentials, send them to the members page.
-  // Otherwise the user will be sent an error
-  router.post("/rpg-api/login", passport.authenticate("local"), (req, res) => {
-    // Sending back a password, even a hashed password, isn't a good idea
-
-      if(req.user.path_id1) {
-
-        res.json({
-          pathId: req.user.path_id1
-        });
-
-      } else if(req.user.path_id2) {
-
-        res.json({
-          pathId: req.user.path_id2
-        });
-
-      } else if(req.user.path_id3) {
-
-        res.json({
-          pathId: req.user.path_id3
-        });
-
-      } else if(req.user.path_id4) {
-
-        res.json({
-          pathId: req.user.path_id4
-        });
-
-      }
-          
-  });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
@@ -239,7 +206,45 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   router.get("/welcome", isAuthenticated, (req, res) => {
-    res.render("welcome", { id: req.user.id, username: req.user.username });
+
+    //Looks for path connected to user that is incomplete
+    db.Path.findOne({
+      where: {
+        user_id: req.user.id,
+        is_complete: false
+      }
+    }).then(pathInProgress => {
+
+      if(pathInProgress) {
+        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: pathInProgress.id, attack: pathInProgress.attack, health: pathInProgress.health, characterClassId: pathInProgress.character_class_id });
+      } else {
+        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: ""});
+      }
+
+    });
+
+  });
+
+  //Renders start of path when game starts
+  router.get("/plot/:pathId", isAuthenticated, (req, res) => {
+
+      //Looks for path loaded and starts at current path
+          db.Path.findOne({
+            where: {
+              id: req.params.pathId
+            }
+          }).then(pathInProgress => {
+
+              res.render("plot", { 
+                userId: pathInProgress.user_id, 
+                pathId: pathInProgress.id, 
+                attack: pathInProgress.attack, 
+                health: pathInProgress.health, 
+                characterClassId: pathInProgress.character_class_id,
+                currentPath: pathInProgress.currentPath
+              });
+            
+          });
   });
 
 module.exports = router
