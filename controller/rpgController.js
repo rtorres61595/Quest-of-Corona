@@ -21,15 +21,6 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
   });
 
-  //PUT to attack
-  router.put("/rpg-api/users/attack", (req, res) => {
-  //Subtracts attack pts of character from enemy HP
-
-    //return report of who isDead
-    //ex. { characterDead: true, enemyDead: false }
-
-  });
-
   //PUT to block
   router.put("/rpg-api/users/block", (req, res) => {
     db.Path.update({
@@ -163,6 +154,16 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
   //GET enemy stats
   router.get("/rpg-api/badguys/:id", (req, res) => {
 
+    db.Enemy.findOne({
+      where: {
+        id: req.body.id
+      }
+    }).then(foundEnemy => {
+
+      res.json(foundEnemy);
+
+    });
+
   });
 
   // Using the passport.authenticate middleware with our local strategy.
@@ -170,10 +171,33 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
   // Otherwise the user will be sent an error
   router.post("/rpg-api/login", passport.authenticate("local"), (req, res) => {
     // Sending back a password, even a hashed password, isn't a good idea
-    res.json({
-      email: req.user.email,
-      id: req.user.id
-    });
+
+      if(req.user.path_id1) {
+
+        res.json({
+          pathId: req.user.path_id1
+        });
+
+      } else if(req.user.path_id2) {
+
+        res.json({
+          pathId: req.user.path_id2
+        });
+
+      } else if(req.user.path_id3) {
+
+        res.json({
+          pathId: req.user.path_id3
+        });
+
+      } else if(req.user.path_id4) {
+
+        res.json({
+          pathId: req.user.path_id4
+        });
+
+      }
+          
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to

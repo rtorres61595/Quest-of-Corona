@@ -36,6 +36,18 @@ defendBtn.on("click", event => {
 
 });
 
+
+attackBtn.on("click", event => {
+
+    //Subtracts attack pts of character from enemy HP
+  
+
+  
+      //return report of who isDead and how much enemy HP is left
+      //ex. { characterDead: true, enemyDead: false, enemyHP: 30 }
+
+});
+
 //if end of path, do POST request to level up and redirect to choice of special skills or next level
 nextLvlBtn.on("click", event => {
 

@@ -1,13 +1,16 @@
   // Getting references to our form and input
-  const characterSelected = '';
-  const userId = '';
+  const characterSelected = $("input[name='character-class']:checked");
+  const userId = $("#startBtn").attr("userId");
   const createCharForm = $("form.create-character");
 
   createCharForm.on("submit", event => {
     event.preventDefault();
+    alert(`user id - ${userId}`);
+    alert(`character selected - ${characterSelected.val()}`)
+
     const data = {
-      userId: userId.text().trim(),
-      characterClassId: characterSelected.text().trim()
+      userId: userId.trim(),
+      characterClassId: characterSelected.val().trim()
     };
 
     if (!data.userId || !data.characterSelected) {
@@ -25,8 +28,7 @@ function createCharacter(userId, characterId) {
       characterClassId: characterId
     })
       .then(() => {
-       //Updates user with Path ID
-          
+        window.location = "/plot/"+userId;   
       })
       .catch(err => {
         console.log(err);
