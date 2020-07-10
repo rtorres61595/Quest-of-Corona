@@ -69,7 +69,7 @@ $(document).ready(() => {
     loginPasswordInput.val("");
   });
 
-  // loginUser does a post to our "rpg-api/login" route and if successful, redirects us the the members page
+  // loginUser does a post to our "rpg-api/login" route and if successful, redirects us the the welcome page
   function loginUser(username, password) {
     $.post("/rpg-api/login", {
       username: username,

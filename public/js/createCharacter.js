@@ -1,25 +1,36 @@
   // Getting references to our form and input
-  const characterSelected = $("input[name='character-class']:checked");
-  const userId = $("#startBtn").attr("userId");
-  const createCharForm = $("form.create-character");
+  const startBtn = $("#startBtn");
 
-  createCharForm.on("submit", event => {
-    event.preventDefault();
-    alert(`user id - ${userId}`);
-    alert(`character selected - ${characterSelected.val()}`)
+//On Click event for Start button
+startBtn.on("click", (event) => {
 
-    const data = {
-      userId: userId.trim(),
-      characterClassId: characterSelected.val().trim()
-    };
+  event.preventDefault();
 
-    if (!data.userId || !data.characterSelected) {
-      return;
-    }
+  let pathId = startBtn.attr("path");
+  let userId = startBtn.attr("user");
+  console.log(`path id - ${pathId}`);
+  console.log(`user id - ${userId}`);
+
+  //saving userId to localStorage
+  localStorage.setItem("userId", userId);
+
+  if(pathId === 'none') {
+    console.log("creating character");
+    console.log($("input[name='character-class']:checked").val());
+    createCharacter(userId, $("input[name='character-class']:checked").val());
+ 
+  } else {
+    console.log("going straight to plot");
+
+    //saving pathId
+    localStorage.setItem("pathId", pathId);
+
+    //sending request to plot
+    window.location = "/plot/"+pathId;
+
+  }
     
-    createCharacter(userId, characterId);
-
-  });
+});
 
 //Creates Character Path, updates user and sends back path ID
 function createCharacter(userId, characterId) {

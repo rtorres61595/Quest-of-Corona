@@ -1,10 +1,10 @@
 const attackBtn = $("#attack-enemy");
 const defendBtn = $("#block");
 const healBtn = $("#heal");
-const nextLvlBtn = "";
+const nextLvlBtn = $("#next-lvl-btn");
 
-const userId = '';
-const pathId = '';
+const userId = localStorage.getItem("userId");
+const pathId = localStorage.getItem("pathId");
 
 //uses up heal
 healBtn.on("click", event => {

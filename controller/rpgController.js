@@ -110,9 +110,6 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
           res.status(401).json(err);
         });
 
-
-      // If none of the above, return the user
-      return done(null, HeroClass);
     });
 
   });
@@ -186,6 +183,12 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
       });
   });
 
+  router.post("/rpg-api/login", passport.authenticate("local"), function(req, res) {
+    console.log("logging in");
+    res.json(req.user);
+  });
+
+
   // Route for logging user out
   router.get("/logout", (req, res) => {
     req.logout();
@@ -213,12 +216,14 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
         user_id: req.user.id,
         is_complete: false
       }
+    }).then(pathResult => {
+      return pathResult;
     }).then(pathInProgress => {
 
-      if(pathInProgress) {
+      if(pathInProgress != null) {
         res.render("welcome", { id: req.user.id, username: req.user.username, pathId: pathInProgress.id, attack: pathInProgress.attack, health: pathInProgress.health, characterClassId: pathInProgress.character_class_id });
       } else {
-        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: ""});
+        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: 'none'});
       }
 
     });
@@ -234,7 +239,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
               id: req.params.pathId
             }
           }).then(pathInProgress => {
-
+            
               res.render("plot", { 
                 userId: pathInProgress.user_id, 
                 pathId: pathInProgress.id, 
