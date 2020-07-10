@@ -30,8 +30,10 @@ p{
   color: whitesmoke
 }
 
-header{
-  font-size: xx-large;
+
+#header{
+  font-size: 2.5em;
+  padding-top:20px;
 }
 
 #rpgui-button{
@@ -138,6 +140,7 @@ button{
 
 #welcomediv{
   text-align: center;
+  margin-top:200px;
 }
 
 #choosechar{
@@ -208,4 +211,19 @@ h2{
   font-family:'Press Start 2P', cursive; 
   text-align: center;
   font-size: inherit;
+}
+
+#charselect div {
+  display: inline-block;
+  width:24%;
+}
+
+#startBtn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.golden {
+  margin-left:10%;
 }
