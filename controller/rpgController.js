@@ -72,18 +72,21 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
       let newAttack = parseFloat(foundPath.attack) + 1;
       let newHealth = parseFloat(foundPath.health) + 1;
-      let newPath = '';
+
+      let changesObj = {health: newHealth, attack: newAttack, heal: false, block: false, is_complete: false};
 
       console.log("current path - "+foundPath.currentPath);
 
       if(foundPath.currentPath == 'forest') {
-        newPath = 'cave'
-      } else if(this.currentPath == 'cave') {
-        newPath = 'deeper cave';
+        changesObj.currentPath = 'cave'
+      } else if(foundPath.currentPath == 'cave') {
+        changesObj.currentPath = 'deeper cave';
+      }else if(foundPath.currentPath == 'deeper cave') {
+        changesObj.is_complete = true;
       }
 
       //updating path with level up and resetting heal/block
-      foundPath.update({ health: newHealth, attack: newAttack, heal: false, block: false, currentPath: newPath}, 
+      foundPath.update(changesObj, 
         {
         where: {
           id: foundPath.id
@@ -92,12 +95,10 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
         if (dbpath.changedRows == 0) {
           // If no rows were changed, then the ID must not exist, so 404
           return res.status(404).end();
-        } else {
-          res.status(200).end();
-        }
+        } 
     });
 
-      res.status(200).end();
+    res.json({is_complete: changesObj.is_complete});
       
     });
   
@@ -244,9 +245,16 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
+  //Game over screen
   router.get("/end", (req, res) => {
     //send the end.html file
     res.sendFile(path.join(__dirname, "../public/end.html"));
+  });
+
+  //Complete screen
+  router.get("/complete", (req, res) => {
+    //send the win.html file
+    res.sendFile(path.join(__dirname, "../public/win.html"));
   });
 
   // Here we've add our isAuthenticated middleware to this route.
