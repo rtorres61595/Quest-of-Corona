@@ -75,27 +75,12 @@ attackBtn.on("click", event => {
       //redirect to end.html in a minute
       setTimeout(function(){window.location = "/end"}, 10000);
     } else if(report.enemyDead) {
+
+      //show message
+      $("#battleText").text("The Enemy is dead! Huzzah!")
+
       //show next button
-      const newBtn = $("button");
-      newBtn.addClass("progress_plot_btn rpgui-button");
-      newBtn.text("Next");
-      $("#statsdiv").append(newBtn);
-
-      newBtn.on("click", function(event) {
-
-        event.preventDefault();
-        $.ajax({
-            method: "PUT",
-            url: "/rpg-api/levelUp",
-            data: {id: pathId}
-          })
-            .catch(err => {
-              console.log(err);
-            
-            }).then(function(){
-                window.location = "/path/" + pathId
-            })
-    });
+      $("#plot-progress-btn").show();
       
     } else {  
       
@@ -106,22 +91,6 @@ attackBtn.on("click", event => {
     }
 
 });
-
-//if end of path, do POST request to level up and redirect to choice of special skills or next level
-nextLvlBtn.on("click", event => {
-
-  event.preventDefault();
-  $.ajax({
-      method: "PUT",
-      url: "/rpg-api/levelUp",
-      data: {id: pathId}
-    })
-      .catch(err => {
-        console.log(err);
-      });
-
-});
-
 
 function attack() {
 
@@ -209,4 +178,25 @@ function enemysTurn() {
 
 tryagainBtn.on("click", function(res) {
   res.redirect("/welcome");
-})
+});
+
+//if end of path, do POST request to level up and redirect to plot
+$("#plot-progress-btn").on("click", function(event) {
+
+  event.preventDefault();
+
+  $.ajax({
+      method: "PUT",
+      url: "/rpg-api/levelUp",
+      data: {id: pathId}
+    }).then(() => {
+
+      console.log('finished level up');
+      window.location = "/plot/" + pathId;
+
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+});
