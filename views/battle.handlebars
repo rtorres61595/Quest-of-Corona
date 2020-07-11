@@ -11,7 +11,7 @@
                         <!--user health bar-->
                         <div id="hp-bar" data-value="1" class="rpgui-progress green" data-rpguitype="progress">
                             <div class=" rpgui-progress-track">
-                                <div class=" rpgui-progress-fill red" style="left: 0px; width: 10%;">
+                                <div class=" rpgui-progress-fill red" id="your-hp" full_health="{{health}}" current_health="{{health}}" style="left: 0px; width: 10%;">
                                 </div>
                             </div>
                             <div class="rpgui-progress-left-edge">
@@ -46,7 +46,14 @@
                             </span></li>
                         </ul>
                        
-                        
+                        <h2 style="color:black; margin-top:4em;">Plot</h2>
+                            <hr class="golden" style="color:gold">
+                        <p id="battleText">Your Turn to Fight!</p>
+
+                        <!--next button -->
+                        <button id="plot-progress-btn" type="button" class="rpgui-button" style="width:32%; display:none;">
+                        <p>Next</p>
+                        </button>
                     </div>
 
                 </div>
@@ -54,11 +61,13 @@
                 <div class="col-7" >
 
                     <div class="rpgui-container framed-golden-2" id="bossdiv">
+                        <p id="enemyId" style="display: none;">{{enemyId}}</p>
+                        <p id="boss-attack" style="display: none;">{{enemyAttack}}</p>
                         <h1>{{enemyName}}</h1>
                         <!--Boss health bar-->
-                        <div id="hp-bar" data-value="1" class="rpgui-progress red" data-rpguitype="progress">
+                        <div id="boss-hp" data-value="1" class="rpgui-progress red" data-rpguitype="progress" full_health="{{enemyHealth}}" current_health="{{enemyHealth}}">
                             <div class=" rpgui-progress-track">
-                                <div class=" rpgui-progress-fill red" style="left: 0px; width: 10%;">
+                                <div class="rpgui-progress-fill red" style="left: 0px; width: 10%;">
                                 </div>
                             </div>
                             <div class=" rpgui-progress-left-edge">

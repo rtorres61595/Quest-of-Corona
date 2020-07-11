@@ -14,33 +14,6 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 //API ROUTES
 
-  //PUT to take damage
-  router.put("/rpg-api/users/takeDamage", (req, res) => {
-
-    //find enemy class
-    db.Enemy.findOne({
-      where: {
-        id: req.body.enemyId
-      }
-    }).then(enemyFound => {
-
-      if(enemyFound != null) {
-
-        //get enemy attack pts
-        //Subtracts attacks pts of enemy from character HP
-        let newCharHP = parseFloat(req.body.characterHP) - parseFloat(enemyFound.attack);
-
-        //return new Character HP
-        res.json({characterHP: newCharHP});
-
-      } else {
-        res.status(404).end();
-      }
-
-    })
-
-  });
-
   //PUT to block
   router.put("/rpg-api/users/block", (req, res) => {
     db.Path.update({
@@ -97,9 +70,59 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
       }
     }).then(foundPath => {
 
-      foundPath.levelUp();
-      foundPath.reset();
+      let newAttack = parseFloat(foundPath.attack) + 1;
+      let newHealth = parseFloat(foundPath.health) + 1;
 
+      let changesObj = {health: newHealth, attack: newAttack, heal: false, block: false, is_complete: false};
+
+      console.log("current path - "+foundPath.currentPath);
+
+      if(foundPath.currentPath == 'forest') {
+        changesObj.currentPath = 'cave'
+      } else if(foundPath.currentPath == 'cave') {
+        changesObj.currentPath = 'deeper cave';
+      }else if(foundPath.currentPath == 'deeper cave') {
+        changesObj.is_complete = true;
+      }
+
+      //updating path with level up and resetting heal/block
+      db.Path.update(changesObj, 
+        {
+        where: {
+          id: foundPath.id
+        }
+      }).then(function(dbpath) {
+        if (dbpath.changedRows == 0) {
+          // If no rows were changed, then the ID must not exist, so 404
+          return res.status(404).end();
+        } 
+    });
+
+    res.json({is_complete: changesObj.is_complete});
+
+      
+    });
+  
+  });
+
+  //PUT to reset for try again
+  router.put("/rpg-api/reset", (req, res) => {
+
+    db.Path.findOne({
+      where: {
+        id: req.body.id
+      }
+    }).then(foundPath => {
+
+      //updating path with level up and resetting heal/block
+      foundPath.update({ heal: false, block: false, is_dead: false}, {
+        where: {
+          id: foundPath.id
+        }
+      });
+
+      res.status(200).end();
+      
     });
   
   });
@@ -223,9 +246,16 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
+  //Game over screen
   router.get("/end", (req, res) => {
     //send the end.html file
     res.sendFile(path.join(__dirname, "../public/end.html"));
+  });
+
+  //Complete screen
+  router.get("/complete", (req, res) => {
+    //send the win.html file
+    res.sendFile(path.join(__dirname, "../public/win.html"));
   });
 
   // Here we've add our isAuthenticated middleware to this route.
@@ -326,6 +356,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
             }).then((enemyFound) => {
 
               battleObj.enemyHealth = enemyFound.health;
+              battleObj.enemyAttack = enemyFound.attack;
               res.render("battle", battleObj);
 
             });

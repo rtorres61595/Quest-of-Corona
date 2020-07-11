@@ -39,6 +39,9 @@ function createCharacter(userId, characterId) {
       characterClassId: characterId
     })
       .then((path) => {
+       //saving pathId
+        localStorage.setItem("pathId", path.id);
+
         window.location = "/plot/"+path.id;   
       })
       .catch(err => {

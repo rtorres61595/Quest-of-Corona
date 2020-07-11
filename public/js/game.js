@@ -27,8 +27,15 @@ healBtn.on("click", event => {
     //0 left on heal
     $("#showHeal").text("0 left");
 
+
+    //update hp bar
+    var progress = $(".rpgui-progress .green");
+    progress.css("width", "100%");
+
     //show message
     $("#battleText").text("You healed! You are back to "+fullHealth+" health.");
+
+    //enemy turn
       autoEnemyTurn();
 
 });
@@ -58,7 +65,7 @@ defendBtn.on("click", event => {
     //show message
     $("#battleText").text("You blocked!");
 
-    autoEnemyTurn();
+    autoEnemyTurn(0);
 
 });
 
@@ -72,9 +79,18 @@ attackBtn.on("click", event => {
     if(report.characterDead) {
       //show message that you lost
        $("#battleText").text("You're positive for COVID. Try again.")
+
+       //update hp bar
+       var progress = $(".rpgui-progress .green");
+        progress.css("width", "0%");
+
       //redirect to end.html in a minute
       setTimeout(function(){window.location = "/end"}, 10000);
     } else if(report.enemyDead) {
+
+      //updates enemy bar
+      var progress = $(".rpgui-progress .red");
+      progress.css("width", "0%");
 
       //show message
       $("#battleText").text("The Enemy is dead! Huzzah!")
@@ -117,26 +133,45 @@ function attack() {
 
     let healthPerc = newEnemyHP/parseFloat(fullHealth);
 
-    var progress = document.getElementById("boss-hp");
-    RPGUI.set_value(progress, healthPerc);
+    //update enemy health
+    console.log("enemy health % - "+healthPerc*100);
+    var progress = $(".rpgui-progress .red");
+    progress.css("width", healthPerc*100+"%");
 
     return {characterDead: false, enemyDead: false, enemyHP: newEnemyHP}; 
   
-
 }
 
-function enemysTurn() {
+function enemysTurn(damagePtsOverride) {
 
       //get Enemy class ID to send in request as enemyId
       const enemyId = $("#enemyId").text();
-      const enemyAttackPts = $("#boss-attack").text();
+
+      let enemyAttackPts = $("#boss-attack").text();
+
+      //means you blocked
+      if(damagePtsOverride === 0) {
+        enemyAttackPts = 0;
+      }
 
       //get characterHP to send in request as characterHP
       const characterHp = $("#your-hp").attr("current_health");
 
+      //full health
+      const fullCharHP = $("#your-hp").attr("full_health");
+
       //calculate and return new Character HP
       let newCharacterHP = parseFloat(characterHp) - parseFloat(enemyAttackPts);
 
+      let healthPerc = parseFloat(newCharacterHP) / parseFloat(fullCharHP);
+
+      //updates health bar of user
+      if(enemyAttackPts > 0) {
+        console.log("user health % - "+healthPerc*100);
+        var progress = $(".rpgui-progress .green");
+        progress.css("width", healthPerc*100+"%");
+      }
+  
       $("#your-hp").attr("current_health", newCharacterHP);
  
       //change characterHp on the screen to newCharacterHP
@@ -153,23 +188,34 @@ function enemysTurn() {
     }
 
 
-    function autoEnemyTurn() {
+
+    function autoEnemyTurn(damagePtsOverride) {
 
       setTimeout(function() { 
         
         $("#battleText").text(`Enemy attacked!`); 
   
         //trigger enemy attack
-        let enemyReport  = enemysTurn();
+        let enemyReport  = enemysTurn(damagePtsOverride);
+
         console.log("enemy report - "+JSON.stringify(enemyReport));
   
         if(enemyReport.characterDead) {
             //show message that you lost
-            $("#battleText").text("You're positive for COVID. Try again.")
+            $("#battleText").text("You're positive for COVID. Try again.");
+
+            //update character hp bar
+            var progress = $(".rpgui-progress .green");
+            progress.css("width", "0%");
+
             //redirect to end.html in a minute
             setTimeout(function(){window.location = "/end"}, 10000);
-        } else  {
-          $("#battleText").text(`Enemy attacked! You took damage! You are down to ${enemyReport.characterHP} health. It's your move.`);
+        } else if(damagePtsOverride === 0) {
+          
+          $("#battleText").text(`You took no damage but your shield has broken! It's your move now.`);
+
+        }else  {
+          $("#battleText").text(`Enemy attacked! You took damage! You are down to ${enemyReport.characterHP} health. It's your move now.`);
         }
     
       }, 2000);
@@ -189,11 +235,16 @@ $("#plot-progress-btn").on("click", function(event) {
       method: "PUT",
       url: "/rpg-api/levelUp",
       data: {id: pathId}
-    }).then(() => {
+    }).then((response) => {
 
       console.log('finished level up');
-      window.location = "/plot/" + pathId;
+      console.log("response - "+JSON.stringify(response));
 
+      if(response.is_complete) {
+        window.location = "/complete";
+      } else {
+        window.location = "/plot/" + pathId;
+      }
     })
     .catch(err => {
       console.log(err);
