@@ -70,9 +70,57 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
       }
     }).then(foundPath => {
 
-      foundPath.levelUp();
-      foundPath.reset();
+      let newAttack = parseFloat(foundPath.attack) + 1;
+      let newHealth = parseFloat(foundPath.health) + 1;
+      let newPath = '';
 
+      console.log("current path - "+foundPath.currentPath);
+
+      if(foundPath.currentPath == 'forest') {
+        newPath = 'cave'
+      } else if(this.currentPath == 'cave') {
+        newPath = 'deeper cave';
+      }
+
+      //updating path with level up and resetting heal/block
+      foundPath.update({ health: newHealth, attack: newAttack, heal: false, block: false, currentPath: newPath}, 
+        {
+        where: {
+          id: foundPath.id
+        }
+      }).then(function(dbpath) {
+        if (dbpath.changedRows == 0) {
+          // If no rows were changed, then the ID must not exist, so 404
+          return res.status(404).end();
+        } else {
+          res.status(200).end();
+        }
+    });
+
+      res.status(200).end();
+      
+    });
+  
+  });
+
+  //PUT to reset for try again
+  router.put("/rpg-api/reset", (req, res) => {
+
+    db.Path.findOne({
+      where: {
+        id: req.body.id
+      }
+    }).then(foundPath => {
+
+      //updating path with level up and resetting heal/block
+      foundPath.update({ heal: false, block: false, is_dead: false}, {
+        where: {
+          id: foundPath.id
+        }
+      });
+
+      res.status(200).end();
+      
     });
   
   });

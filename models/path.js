@@ -51,36 +51,6 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    //resets health, heal and block when retrying path
-    Path.prototype.reset = function() {
-
-        this.is_dead = false;
-        this.heal = false;
-        this.block = false;
-    };
-  
-    Path.prototype.levelUp = function() {
-        //Increases stats and resets Heals
-        this.heal = false;
-        this.block = false;
-
-        this.attack += 5;
-        this.health += 5;
-
-        if(this.currentPath === 'forest') {
-            this.currentPath = 'cave'
-        } else if(this.currentPath === 'cave') {
-            this.currentPath = 'deeper cave';
-        }
-
-    };
-
-    Path.prototype.complete = function() {
-
-        this.is_complete = false;
-
-    }
-
     return Path;
 
 };
