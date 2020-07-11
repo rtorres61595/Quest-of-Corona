@@ -4,14 +4,14 @@
             <div class="row">
                 <div class="col-4" >
                     <div class="rpgui-container framed-golden-2 rgui-content" id="statsdiv">
-                        <h2>{{username}} Stats</h2 style="color:black;">
+                        <h2>Your Stats</h2 style="color:black;">
                             <hr class="golden" style="color:gold">
                         <ul>
-                            <li>Attack:<span id="showAttack"></span></li>
+                            <li>Attack:<span id="showAttack">{{attack}}</span></li>
                             <br>
-                            <li>Heal:<span id="showHeal"></span></li>
+                            <li>Heal:<span id="showHeal">{{heal}}</span></li>
                             <br>
-                            <li>Block:<span id="showBlock"></span></li>
+                            <li>Block:<span id="showBlock">{{block}}</span></li>
                         </ul>
                        
                         <!--user health bar-->
@@ -32,7 +32,7 @@
                 <div class="col-7" >
 
                     <div class="rpgui-container framed-golden-2" id="bossdiv">
-                        <h1>{{enemy}} HP</h1>
+                        <h1>{{enemyName}} HP</h1>
                         <!--Boss health bar-->
                         <div id="hp-bar" data-value="1" class="rpgui-progress red" data-rpguitype="progress">
                             <div class=" rpgui-progress-track">
@@ -51,7 +51,7 @@
                     <br>
                     <br>
                     <div>
-                        <img src="#" alt="" id="bossimage">
+                        <img src="{{enemyImgPath}}" alt="" id="bossimage">
                     </div>
                 </div>
             </div>
