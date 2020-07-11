@@ -1,6 +1,5 @@
 const userName = localStorage.getItem("username"); // saved to session
 const nextPlotPointBtn = $("#plotNextBtn");
-const pathId = nextPlotPointBtn.attr("pathId");
 
 //contains all dialogue text blocks in order
 const plotArr = [
@@ -28,8 +27,6 @@ const forestImg = '/images/plot1Bkg.png';
 const caveImg = '/images/plot2Bkg.png';
 const deeperCaveImg = '/images/plot3Bkg.png';
 
-let textBlockNum = 1;
-let textBlock = 'textBlock1';
 let pathImg = '';
 
 //bee for forest
@@ -52,23 +49,37 @@ switch(currentPath) {
         pathImg = deeperCaveImg;
 }
 
+let textBlockNum = 1;
+let textBlock = 'textBlock'+textBlockNum;
+
+nextText(textBlockNum, textBlock);
+
+textBlockNum++;
+textBlock = 'textBlock'+textBlockNum; 
 
 //show image for plot
 $('img.plot-bg').attr("src", pathImg);
 
-//show first text block
-$('#plottext').text(plotArr[pathIndex][textBlock]);
-
 nextPlotPointBtn.on("click", (event) => {
+
+    console.log(`text block - ${textBlock}`);
+    console.log(`text block number - ${textBlockNum}`);
 
     event.preventDefault();
 
-    if(textBlockNum < 5) {
+    nextText(textBlockNum, textBlock);
+
+    textBlockNum++;
+    textBlock = 'textBlock'+textBlockNum; 
+
+});
+
+function nextText(textBlockNum, textBlock) {
+
+    if(textBlockNum < 4) {
 
         //show next block of text
         $('#plottext').text(plotArr[pathIndex][textBlock]);
-        textBlockNum++;
-        textBlock = 'textBlock'+textBlockNum; 
 
     } else if(textBlockNum == 4) {
 
@@ -77,4 +88,4 @@ nextPlotPointBtn.on("click", (event) => {
 
     }
 
-});
+}
