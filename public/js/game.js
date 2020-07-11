@@ -2,6 +2,7 @@ const attackBtn = $("#attack-enemy");
 const defendBtn = $("#block");
 const healBtn = $("#heal");
 const nextLvlBtn = $("#next-lvl-btn");
+const tryagainBtn = $("#tryagaintBtn")
 
 const userId = localStorage.getItem("userId");
 const pathId = localStorage.getItem("pathId");
