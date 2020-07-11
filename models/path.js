@@ -57,8 +57,6 @@ module.exports = function(sequelize, DataTypes) {
         this.is_dead = false;
         this.heal = false;
         this.block = false;
-        this.health = this.full_health;
-
     };
   
     Path.prototype.levelUp = function() {
@@ -68,7 +66,6 @@ module.exports = function(sequelize, DataTypes) {
 
         this.attack += 5;
         this.health += 5;
-        this.full_health += 5;
 
     };
 

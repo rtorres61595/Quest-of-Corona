@@ -77,9 +77,9 @@ $(document).ready(() => {
     }).then(function(){
 
       //saving username to local storage
-      localStorage.setItem("username", userData.username);
+      localStorage.setItem("username", username);
       window.location = "/welcome";
-      
+
     })
       .catch(err => {
         console.log(err);

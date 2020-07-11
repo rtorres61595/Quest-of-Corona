@@ -23,9 +23,9 @@ const plotArr = [
     }
 ];
 
-const forestImg = '../public/images/plot1Bkg.png';
-const caveImg = '../public/images/plot2Bkg.png';
-const deeperCaveImg = '../public/images/plot3Bkg.png';
+const forestImg = '/images/plot1Bkg.png';
+const caveImg = '/images/plot2Bkg.png';
+const deeperCaveImg = '/images/plot3Bkg.png';
 
 let textBlockNum = 1;
 let textBlock = 'textBlock1';
@@ -35,7 +35,6 @@ let pathImg = '';
 //bat for cave
 //dragon for deeper cave
 
-let pathId = localStorage.getItem("pathId");
 let currentPath = $("#plotNextBtn").attr("level");
 
 switch(currentPath) {
@@ -56,6 +55,8 @@ switch(currentPath) {
 //show image for plot
 $('img.plot-bg').attr("src", pathImg);
 
+//show first text block
+$('#plottext').text(plotArr[pathIndex][textBlock]);
 
 nextPlotPointBtn.on("click", (event) => {
 
