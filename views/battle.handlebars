@@ -3,28 +3,50 @@
         <div id="mainBattleDiv" >
             <div class="row">
                 <div class="col-4" >
+                        
                     <div class="rpgui-container framed-golden-2 rgui-content" id="statsdiv">
-                        <h2>Your Stats</h2 style="color:black;">
+
+                        <h2 style="color:black;">Your HP</h2>
                             <hr class="golden" style="color:gold">
-                        <ul>
-                            <li>Attack:<span id="showAttack">{{attack}}</span></li>
-                            <br>
-                            <li>Heal:<span id="showHeal">{{heal}}</span></li>
-                            <br>
-                            <li>Block:<span id="showBlock">{{block}}</span></li>
-                        </ul>
-                       
                         <!--user health bar-->
                         <div id="hp-bar" data-value="1" class="rpgui-progress green" data-rpguitype="progress">
                             <div class=" rpgui-progress-track">
                                 <div class=" rpgui-progress-fill red" style="left: 0px; width: 10%;">
                                 </div>
                             </div>
-                            <div class=" rpgui-progress-left-edge">
+                            <div class="rpgui-progress-left-edge">
                             </div>
-                            <div class=" rpgui-progress-right-edge">
+                            <div class="rpgui-progress-right-edge">
                             </div>
                         </div>
+
+                        <h2 style="color:black; margin-top:7em;">Your Stats</h2>
+                            <hr class="golden" style="color:gold">
+                        <ul>
+                            <li>Attack:<span id="showAttack">{{attack}}</span></li>
+                            <br>
+                            <li>Heal:<span id="showHeal">
+                                
+                                {{#if heal}}
+                                    0 left
+                                {{else}}
+                                    1 left
+                                {{/if}}
+
+                            </span></li>
+                            <br>
+                            <li>Block:<span id="showBlock">
+
+                                {{#if block}}
+                                    0 left
+                                {{else}}
+                                    1 left
+                                {{/if}}
+
+                            </span></li>
+                        </ul>
+                       
+                        
                     </div>
 
                 </div>
@@ -32,7 +54,7 @@
                 <div class="col-7" >
 
                     <div class="rpgui-container framed-golden-2" id="bossdiv">
-                        <h1>{{enemyName}} HP</h1>
+                        <h1>{{enemyName}}</h1>
                         <!--Boss health bar-->
                         <div id="hp-bar" data-value="1" class="rpgui-progress red" data-rpguitype="progress">
                             <div class=" rpgui-progress-track">
