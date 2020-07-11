@@ -27,8 +27,14 @@ healBtn.on("click", event => {
     //0 left on heal
     $("#showHeal").text("0 left");
 
+    //update hp bar
+    var progress = $(".rpgui-progress .green");
+    progress.css("width", "100%");
+
     //show message
     $("#battleText").text("You healed! You are back to "+fullHealth+" health.");
+
+    //enemy turn
       autoEnemyTurn();
 
 });
