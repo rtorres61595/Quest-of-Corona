@@ -251,3 +251,8 @@ h2{
   margin-left:10%;
 }
 
+#savedpathId{
+  justify-content: space-between;
+  text-align: center;
+}
+
