@@ -150,6 +150,7 @@ button{
 
 #welcomediv{
   text-align: center;
+  margin-top:180px;
 }
 
 #choosechar{
@@ -249,3 +250,4 @@ h2{
 .welcome-screen .golden {
   margin-left:10%;
 }
+
