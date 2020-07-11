@@ -14,33 +14,6 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 //API ROUTES
 
-  //PUT to take damage
-  router.put("/rpg-api/users/takeDamage", (req, res) => {
-
-    //find enemy class
-    db.Enemy.findOne({
-      where: {
-        id: req.body.enemyId
-      }
-    }).then(enemyFound => {
-
-      if(enemyFound != null) {
-
-        //get enemy attack pts
-        //Subtracts attacks pts of enemy from character HP
-        let newCharHP = parseFloat(req.body.characterHP) - parseFloat(enemyFound.attack);
-
-        //return new Character HP
-        res.json({characterHP: newCharHP});
-
-      } else {
-        res.status(404).end();
-      }
-
-    })
-
-  });
-
   //PUT to block
   router.put("/rpg-api/users/block", (req, res) => {
     db.Path.update({
@@ -326,6 +299,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
             }).then((enemyFound) => {
 
               battleObj.enemyHealth = enemyFound.health;
+              battleObj.enemyAttack = enemyFound.attack;
               res.render("battle", battleObj);
 
             });
