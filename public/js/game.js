@@ -66,15 +66,11 @@ attackBtn.on("click", event => {
             .catch(err => {
               console.log(err);
             
-            }).then(function(dbpath){
-              
+            }).then(function(){
+                window.location = "/path/" + pathId
             })
-
-            
-    
     });
       
-    
     } else {
       //update enemy HP
       let newEnemyHP = parseFloat(req.body.EnemyHP) - parseFloat(characterId.attack);
@@ -107,17 +103,9 @@ nextLvlBtn.on("click", event => {
 function attack() {
 
   //Get Attack
-  db.Enemy.findOne({
-    where: {
-      attack: req.body.attack
-    }
-  })
+  
   //Get Enemy HP
-  db.Enemy.findone({
-    where: {
-      health:req.body.health
-    }
-  })
+  
   //Subtracts attack pts of character from enemy HP
   
   
@@ -129,23 +117,33 @@ function attack() {
 function enemysTurn() {
 
       //get Enemy class ID to send in request as enemyId
-      db.Enemy.findone({
-        where: {
-          id: req.body.enemyId
-        }
-      })
+      const enemyId = ""
+      const characterHp = ""
       //get characterHP to send in request as characterHP
 
       //do post to /rpg-api/users/takeDamage and it should return new Character HP
-      router.post("/rpg-api/users/takeDamage", (req, res) => {
-
-      }
-
-
-      //return report of who isDead and how much character HP is left
-      //ex. { characterDead: true, enemyDead: false, characterHP: 30 }
-
-      )}
+        event.preventDefault();
+        $.ajax({
+            method: "POST",
+            url: "/rpg-api/users/takeDamage",
+            data: {enemyId: enemyId,
+            characterHP: characterHp}
+          }).then(function(characterObj){
+              //change characterHp on the screen to .charecterObj.characterHP
+              //return report of who isDead and how much character HP is left
+              //ex. { characterDead: true, enemyDead: false, characterHP: 30 }
+              if(characterObj.characterHP <= 0){
+                return { characterDead: true, enemyDead: false, characterHP: characterObj.characterHP}
+              } 
+              else 
+              {
+                return { characterDead: true, enemyDead: false, characterHP: characterObj.characterHP}
+              }
+          })
+            .catch(err => {
+              console.log(err);
+            });
+    }
 
 tryagainBtn.on("click", function(res) {
   res.redirect("/welcome");
