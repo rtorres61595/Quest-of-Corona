@@ -242,7 +242,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
     }).then(pathInProgress => {
 
       if(pathInProgress != null) {
-        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: pathInProgress.id, attack: pathInProgress.attack, health: pathInProgress.health, characterClassId: pathInProgress.character_class_id });
+        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: pathInProgress.id, attack: pathInProgress.attack, health: pathInProgress.health, characterClassId: pathInProgress.character_class_id, characterName: pathInProgress.character_name});
       } else {
         res.render("welcome", { id: req.user.id, username: req.user.username, pathId: 'none'});
       }
@@ -264,13 +264,62 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
               res.render("plot", {
                 userId: pathInProgress.user_id, 
                 pathId: pathInProgress.id, 
-                attack: pathInProgress.attack, 
-                health: pathInProgress.health, 
-                characterClassId: pathInProgress.character_class_id,
                 currentPath: pathInProgress.currentPath
               });
             
           });
+  });
+
+    //Renders battle based on current path
+    //bee for forest
+    //bat for cave
+    //dragon for deeper cave
+  router.get("/battle/:pathId/:currentPath", isAuthenticated, (req, res) => {
+
+        let nameOfEnemy = '';
+        let enemyImage = '';
+        let enemyId = '';
+
+        switch(req.params.currentPath) {
+          case "forest":
+              enemyId = 1;
+              nameOfEnemy = 'Murder Hornet';
+              enemyImage = '/images/leveloneBkg.gif';
+              break;
+          case "cave":
+              enemyId = 2;
+              nameOfEnemy = 'Ground Zero Bat';
+              enemyImage = '/images/leveltwoBkg.gif';
+              break;
+          case "deeper cave":
+              enemyId = 3;
+              nameOfEnemy = 'Covid Dragon';
+              enemyImage = '/images/levelthreeBkg.gif';
+        }
+
+        //Looks for path loaded and starts at current path
+        db.Path.findOne({
+          where: {
+            id: req.params.pathId
+          }
+        }).then(pathInProgress => {
+          
+            res.render("battle", {
+              userId: pathInProgress.user_id, 
+              pathId: pathInProgress.id, 
+              attack: pathInProgress.attack, 
+              health: pathInProgress.health, 
+              heal: pathInProgress.heal,
+              block: pathInProgress.block,
+              characterClassId: pathInProgress.character_class_id,
+              currentPath: pathInProgress.currentPath,
+              enemyId: enemyId,
+              enemyName: nameOfEnemy,
+              enemyImgPath: enemyImage
+            });
+          
+        });
+      
   });
 
 module.exports = router

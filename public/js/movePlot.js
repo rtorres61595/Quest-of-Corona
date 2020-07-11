@@ -1,5 +1,6 @@
 const userName = localStorage.getItem("username"); // saved to session
 const nextPlotPointBtn = $("#plotNextBtn");
+const pathId = nextPlotPointBtn.attr("pathId");
 
 //contains all dialogue text blocks in order
 const plotArr = [
@@ -62,10 +63,18 @@ nextPlotPointBtn.on("click", (event) => {
 
     event.preventDefault();
 
-    //show next block of text
-    $('#plottext').text(plotArr[pathIndex][textBlock]);
+    if(textBlockNum < 5) {
 
-    textBlockNum++;
-    textBlock = 'textBlock'+textBlockNum;
+        //show next block of text
+        $('#plottext').text(plotArr[pathIndex][textBlock]);
+        textBlockNum++;
+        textBlock = 'textBlock'+textBlockNum; 
+
+    } else if(textBlockNum == 4) {
+
+        //redirects to battle screen for path
+        window.location = "/battle/"+pathId+"/"+currentPath;
+
+    }
 
 });
