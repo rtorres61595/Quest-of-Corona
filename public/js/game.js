@@ -124,16 +124,6 @@ function enemysTurn() {
 
       )}
 
-tryagainBtn.on("click", event => {
-
-  event.preventDefault();
-  $.ajax({
-      method: "GET",
-      url: "/rpg-api/path/:id",
-      data: {id: pathId}
-    })
-      .catch(err => {
-        console.log(err);
-      });
-
+tryagainBtn.on("click", function(res) {
+  res.redirect("/welcome");
 })
