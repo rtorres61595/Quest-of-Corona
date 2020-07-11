@@ -86,7 +86,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
       }
 
       //updating path with level up and resetting heal/block
-      foundPath.update(changesObj, 
+      db.Path.update(changesObj, 
         {
         where: {
           id: foundPath.id
@@ -99,6 +99,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
     });
 
     res.json({is_complete: changesObj.is_complete});
+
       
     });
   
