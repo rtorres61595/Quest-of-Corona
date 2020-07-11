@@ -25,22 +25,22 @@ module.exports = function(sequelize, DataTypes) {
     Enemy.create({
         id: 1,
         name: 'Murder Hornet',
-        attack: 2,
-        health: 14
+        attack: 3,
+        health: 16
     });
 
     Enemy.create({
         id: 2,
         name: 'Ground Zero Bat',
-        attack: 2,
-        health: 16
+        attack: 6,
+        health: 20
     });
 
     Enemy.create({
         id: 3,
         name: 'Covid Dragon',
-        attack: 2,
-        health: 25
+        attack: 8,
+        health: 35
     });
 
     Enemy.sync();

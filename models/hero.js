@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
         id: 2,
         name: 'Covid Ninja',
         attack: 4,
-        health: 30
+        health: 35
     });
 
     Hero.create({
@@ -39,7 +39,7 @@ module.exports = function(sequelize, DataTypes) {
         id: 4,
         name: 'Covid Warlock',
         attack: 4,
-        health: 30
+        health: 35
     });
 
     Hero.sync();
