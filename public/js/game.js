@@ -50,6 +50,29 @@ attackBtn.on("click", event => {
       setTimeout(function(){window.location = "/end"}, 10000);
     } else if(report.enemyDead) {
       //show next button
+      const newBtn = $("button")
+      newBtn.addClass("progress_plot_btn rpgui-button")
+      newBtn.text("Next");
+      $("#actionDiv").append(newBtn);
+
+      newBtn.on("click", function(event) {
+
+        event.preventDefault();
+        $.ajax({
+            method: "PUT",
+            url: "/rpg-api/levelUp",
+            data: {id: pathId}
+          })
+            .catch(err => {
+              console.log(err);
+            
+            }).then(function(dbpath){
+              
+            })
+
+            
+    
+    });
       
     
     } else {
