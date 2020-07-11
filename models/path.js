@@ -67,7 +67,19 @@ module.exports = function(sequelize, DataTypes) {
         this.attack += 5;
         this.health += 5;
 
+        if(this.currentPath === 'forest') {
+            this.currentPath = 'cave'
+        } else if(this.currentPath === 'cave') {
+            this.currentPath = 'deeper cave';
+        }
+
     };
+
+    Path.prototype.complete = function() {
+
+        this.is_complete = false;
+
+    }
 
     return Path;
 
