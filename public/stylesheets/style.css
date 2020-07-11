@@ -221,3 +221,18 @@ h2{
   text-align: center;
   font-size: inherit;
 }
+
+#charselect div {
+  display: inline-block;
+  width:24%;
+}
+
+#startBtn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.welcome-screen .golden {
+  margin-left:10%;
+}

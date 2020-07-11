@@ -3,7 +3,8 @@ module.exports = function(sequelize, DataTypes) {
     const Enemy = sequelize.define("Enemy", {
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         attack: {
             type: DataTypes.DOUBLE
@@ -22,52 +23,28 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Enemy.create({
-        name: 'Covid Grunt',
-        attack: 1,
-        health: 10,
-        defaultValue: false
-    });
-
-    Enemy.create({
-        name: 'Covid Monster',
-        attack: 1,
-        health: 10,
-        defaultValue: false
-    });
-
-    Enemy.create({
-        name: 'Covid Slime',
-        attack: 1,
-        health: 10,
-        defaultValue: false
-    });
-
-    Enemy.create({
+        id: 1,
         name: 'Murder Hornet',
         attack: 2,
-        health: 14,
-        defaultValue: false
+        health: 14
     });
 
     Enemy.create({
+        id: 2,
         name: 'Ground Zero Bat',
         attack: 2,
-        health: 16,
-        defaultValue: false
+        health: 16
     });
 
     Enemy.create({
+        id: 3,
         name: 'Covid Dragon',
         attack: 2,
-        health: 25,
-        defaultValue: false
+        health: 25
     });
-
 
     Enemy.sync();
     
     return Enemy;
-
-
 
 };
