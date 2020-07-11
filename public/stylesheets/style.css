@@ -163,16 +163,28 @@ button{
 #startBtn{
   align-content: center;
 }
+
 #plottext{
-  position: absolute; 
-  bottom: 20px;
-  width: 98%;
-  height:25%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 87%;
+  height: 30em;
+  margin-left: 10px;
+}
+
+#plotBox {
+  height: 30%;
+  display: block;
+  width: 99%;
+  position: absolute;
+  bottom: 5%;
+  right: 0.5%;
 }
 
 #plotNextBtn{
   position: absolute;
-  bottom: 28%;
+  top:0%;
   right: 1.5%;
 }
 
@@ -192,6 +204,7 @@ button{
   float:left;
   max-width: 30%;
   height: 75%;
+  width:500px;
 }
 
 #bossdiv{
@@ -202,7 +215,6 @@ button{
 
 #hp-bar{
   position: absolute;
-  bottom:3%;
   left: 0%;
 }
 
@@ -210,6 +222,7 @@ button{
   width: 100%;
   position: absolute;
   top:170%;
+  max-height:30em;
 }
 
 li{
