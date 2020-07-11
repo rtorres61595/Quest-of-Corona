@@ -103,3 +103,7 @@ function enemysTurn() {
 
 }
 
+tryagainBtn.on("click", event => {
+  event.preventDefault();
+  
+})
