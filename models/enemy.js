@@ -22,6 +22,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Enemy.create({
+        id: 1,
         name: 'Covid Grunt',
         attack: 1,
         health: 10,
@@ -29,6 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Enemy.create({
+        id: 2,
         name: 'Covid Monster',
         attack: 1,
         health: 10,
@@ -36,6 +38,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Enemy.create({
+        id: 3, 
         name: 'Covid Slime',
         attack: 1,
         health: 10,
@@ -43,6 +46,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Enemy.create({
+        id: 4,
         name: 'Murder Hornet',
         attack: 2,
         health: 14,
@@ -50,6 +54,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Enemy.create({
+        id: 5,
         name: 'Ground Zero Bat',
         attack: 2,
         health: 16,
@@ -57,6 +62,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Enemy.create({
+        id: 6,
         name: 'Covid Dragon',
         attack: 2,
         health: 25,
