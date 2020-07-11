@@ -1,6 +1,6 @@
-const attackBtn = $("#attack-enemy");
-const defendBtn = $("#block");
-const healBtn = $("#heal");
+const attackBtn = $("#attackBtn");
+const defendBtn = $("#blockBtn");
+const healBtn = $("#healBtn");
 const nextLvlBtn = $("#next-lvl-btn");
 const tryagainBtn = $("#tryagaintBtn")
 
@@ -45,17 +45,22 @@ attackBtn.on("click", event => {
 
     if(report.characterDead) {
       //show message that you lost
-
+       $("#plottext").text("you're positive for covid")
       //redirect to end.html in a minute
-      
+      setTimeout(function(){window.location = "/end"}, 10000);
     } else if(report.enemyDead) {
       //show next button
-
+      
+    
     } else {
       //update enemy HP
+      let newEnemyHP = parseFloat(req.body.EnemyHP) - parseFloat(characterId.attack);
+
+        //return new Character HP
+        res.json({EnemyHP: newEnemyHP});
 
       //trigger enemy attack
-
+      return attack()
     }
 
 });
@@ -79,9 +84,17 @@ nextLvlBtn.on("click", event => {
 function attack() {
 
   //Get Attack
-
+  db.Enemy.findOne({
+    where: {
+      attack: req.body.attack
+    }
+  })
   //Get Enemy HP
-
+  db.Enemy.findone({
+    where: {
+      health:req.body.health
+    }
+  })
   //Subtracts attack pts of character from enemy HP
   
   
@@ -93,15 +106,23 @@ function attack() {
 function enemysTurn() {
 
       //get Enemy class ID to send in request as enemyId
-
+      db.Enemy.findone({
+        where: {
+          id: req.body.enemyId
+        }
+      })
       //get characterHP to send in request as characterHP
 
       //do post to /rpg-api/users/takeDamage and it should return new Character HP
-  
+      router.post("/rpg-api/users/takeDamage", (req, res) => {
+
+      }
+
+
       //return report of who isDead and how much character HP is left
       //ex. { characterDead: true, enemyDead: false, characterHP: 30 }
 
-}
+      )}
 
 tryagainBtn.on("click", event => {
   event.preventDefault();
