@@ -97,7 +97,8 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
       }
     }).then(foundPath => {
 
-      foundPath.levelUp(req.body.specialSkill);
+      foundPath.levelUp();
+      foundPath.reset();
 
     });
   
