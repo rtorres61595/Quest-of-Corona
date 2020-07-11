@@ -65,9 +65,9 @@
                         <p id="boss-attack" style="display: none;">{{enemyAttack}}</p>
                         <h1>{{enemyName}}</h1>
                         <!--Boss health bar-->
-                        <div id="hp-bar" data-value="1" class="rpgui-progress red" data-rpguitype="progress">
+                        <div id="boss-hp" data-value="1" class="rpgui-progress red" data-rpguitype="progress" full_health="{{enemyHealth}}" current_health="{{enemyHealth}}">
                             <div class=" rpgui-progress-track">
-                                <div class=" rpgui-progress-fill red" id="boss-hp" full_health="{{enemyHealth}}" current_health="{{enemyHealth}}" style="left: 0px; width: 10%;">
+                                <div class="rpgui-progress-fill red" style="left: 0px; width: 10%;">
                                 </div>
                             </div>
                             <div class=" rpgui-progress-left-edge">
