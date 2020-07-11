@@ -1,79 +1,88 @@
-    <div
-      class="rpgui-container framed-golden rpgui-content rpgui-cursor-default"
-      style="width: 100%; height: 100%; overflow-y:scroll"
-    >
-      <div
-        class="rpgui-container framed-golden-2"
-        style="width: 95%; text-align: center; margin:10px;"
-      >
-        <h1 id="header">Welcome {{username}}</h1>
+<div class="rpgui-container framed-golden rpgui-content rpgui-cursor-default"
+  style="width: 100%; height: 100%; overflow-y:scroll">
+  <div class="rpgui-container framed-golden-2" style="width: 95%; text-align: center; margin:10px;">
+    <h1 id="header">Welcome {{username}}</h1>
+  </div>
+
+  <div class="uk-width-auto@m uk-grid-divider welcome-screen">
+
+    <div class="rgui-content" id="welcomediv">
+      <h1>How To Play!</h1>
+      <p>Welcome brave warrior! Prepare to embark in an adventure to destroy an evil force destroying your people. But
+        be weary, the road will be an ardeuous one. As you head into battle, you will have three choices - block,
+        attack, and heal. Choose wisely! Each choice will have its own set of rewards.</p>
+      <p>Now go forth warrior! See below the hero classes and choose who you want to be. Let your heart hear its calling
+        and continue your adventure by pressing the start button.</p>
+    </div>
+    <br>
+    <hr class="golden" />
+
+    <!-- choose a character screen -->
+    <!--  -->
+
+    <!-- if logged in, show Character image and stats -->
+
+    <div>
+      {{#if pathId}}
+      <div id="savedpathId">
+
+        <h2>{{username}} the {{characterName}}</h2>
+        <br>
+        <ul>
+          <p>Health {{health}}</p>
+          <br>
+          <p>Attack{{attack}}</p>
+        </ul>
+        {{!-- <img src={{character_class_id}}> --}}
+        <hr class="golden"/>
       </div>
-
-        <div class="uk-width-auto@m uk-grid-divider welcome-screen">
-
-          <div class="rgui-content" id="welcomediv">
-              <h1>How To Play!</h1>
-            <p>Welcome brave warrior! Prepare to embark in an adventure to destroy an evil force destroying your people. But be weary, the road will be an ardeuous one. As you head into battle, you will have three choices - block, attack, and heal. Choose wisely! Each choice will have its own set of rewards.</p> 
-            <p>Now go forth warrior! See below the hero classes and choose who you want to be. Let your heart hear its calling and continue your adventure by pressing the start button.</p>
+      {{else}}
+      <div id="choosechar">
+        <form class="create-character">
+          <h3>Create Character</h3>
+          <p>Choose your character class</p>
+          <div id="charselect">
+            <div>
+              <img src="/images/knight2.gif">
+              <input type="radio" name="character-class" value="1" class="rpgui-radio"
+                data-rpguitype="radio"><label>Covid Knight</label>
             </div>
-            <br>
-            <hr class="golden" />
-
-          <!-- choose a character screen -->
-          <!--  -->
-
-          <!-- if logged in, show Character image and stats -->
-
-            <div> 
-            {{#if pathId}}
-             <div>
-                  <h3>{{username}} the {{characterName}}</h3>
-                  <ul>
-                    <li>Health {{health}}</li>
-                    <li>Attack{{attack}}</li>
-                  </ul>
-                </div>
-             {{else}}
-             <div id="choosechar">
-                <form class="create-character">
-              <h3>Create Character</h3>
-              <p>Choose your character class</p>
-              <div id="charselect">
-                    <div>
-                        <img src="/images/knight2.gif">
-                        <input type="radio" name="character-class" value="1" class="rpgui-radio" data-rpguitype="radio"><label>Covid Knight</label>
-                   </div>
-                    <div>
-                        <img src="/images/ninja.png">
-                        <input type="radio" name="character-class" value="2" class="rpgui-radio" data-rpguitype="radio"><label>Covid Ninja</label>
-                    </div>
-                    <div>
-                        <img src="/images/mage2.gif">
-                        <input type="radio" name="character-class" value="3" class="rpgui-radio" data-rpguitype="radio"><label>Covid Mage</label>
-                    </div>
-                    <div>
-                        <img src="/images/warlock200.gif">
-                        <input type="radio" name="character-class"  value="4" class="rpgui-radio" data-rpguitype="radio"><label>Covid Warlock</label>
-                    </div> 
-               </div>     
-               <hr>
-              </form>
+            <div>
+              <img src="/images/ninja.png">
+              <input type="radio" name="character-class" value="2" class="rpgui-radio"
+                data-rpguitype="radio"><label>Covid Ninja</label>
             </div>
-            {{/if}}
-
-            
-
-
-
-
+            <div>
+              <img src="/images/mage2.gif">
+              <input type="radio" name="character-class" value="3" class="rpgui-radio"
+                data-rpguitype="radio"><label>Covid Mage</label>
+            </div>
+            <div>
+              <img src="/images/warlock200.gif">
+              <input type="radio" name="character-class" value="4" class="rpgui-radio"
+                data-rpguitype="radio"><label>Covid Warlock</label>
+            </div>
           </div>
-          <footer>
-            <blockquote class="uk-column-span uk-flex uk-flex-center">
-            <p>Adventure lies before the path of those who choose it.</p>
-            </blockquote>
-
-            <button class="rpgui-button uk-flex-between" user="{{id}}"type="button" path="{{pathId}}" id="startBtn"><p>Start</p></button>
-
-           </footer> 
-        </div>
+          <hr>
+        </form>
       </div>
+      {{/if}}
+
+
+
+
+
+
+    </div>
+    <footer>
+      <blockquote class="uk-column-span uk-flex uk-flex-center">
+        <p>Adventure lies before the path of those who choose it.</p>
+      </blockquote>
+
+      <button class="rpgui-button uk-flex-between" user="{{id}}" type="button" path="{{pathId}}" id="startBtn">
+        <p>Start</p>
+      </button>
+
+    </footer>
+  </div>
+</div>
