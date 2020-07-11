@@ -34,6 +34,7 @@ let pathImg = '';
 //dragon for deeper cave
 
 let currentPath = $("#plotNextBtn").attr("level");
+let pathIndex = 0;
 
 switch(currentPath) {
     case "forest": 
