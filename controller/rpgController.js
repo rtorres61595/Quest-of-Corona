@@ -243,9 +243,9 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
     }).then(pathInProgress => {
 
       if(pathInProgress != null) {
-        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: pathInProgress.id, attack: pathInProgress.attack, health: pathInProgress.health, characterClassId: pathInProgress.character_class_id, characterName: pathInProgress.character_name});
+        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: pathInProgress.id, attack: pathInProgress.attack, health: pathInProgress.health, characterClassId: pathInProgress.character_class_id, characterName: pathInProgress.character_name,});
       } else {
-        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: 'none'});
+        res.render("welcome", { id: req.user.id, username: req.user.username, pathId: false});
       }
 
     });

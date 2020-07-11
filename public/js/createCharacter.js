@@ -14,7 +14,7 @@ startBtn.on("click", (event) => {
   //saving userId to localStorage
   localStorage.setItem("userId", userId);
 
-  if(pathId === 'none') {
+  if(!pathId) {
     console.log("creating character");
     console.log($("input[name='character-class']:checked").val());
     createCharacter(userId, $("input[name='character-class']:checked").val());

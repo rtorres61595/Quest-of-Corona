@@ -20,12 +20,29 @@ healBtn.on("click", event => {
           console.log(err);
         });
 
+      let fullHealth = $("#your-hp").attr("full_health");
+
+      $("#your-hp").attr("current_health", fullHealth);
+
+    //0 left on heal
+    $("#showHeal").text("0 left");
+
+    //show message
+    $("#battleText").text("You healed! You are back to "+fullHealth+" health.");
+      autoEnemyTurn();
+
 });
 
 //uses up block
 defendBtn.on("click", event => {
-
+  
     event.preventDefault();
+
+    if( $("#showBlock").text() === '0 left') {    
+      $("#battleText").text("You cannot block again!");
+      autoEnemyTurn();
+    }
+
     $.ajax({
         method: "PUT",
         url: "/rpg-api/users/block",
@@ -35,6 +52,14 @@ defendBtn.on("click", event => {
           console.log(err);
         });
 
+    //0 left on block
+    $("#showBlock").text("0 left");
+
+    //show message
+    $("#battleText").text("You blocked!");
+
+    autoEnemyTurn();
+
 });
 
 //On click of attack button, lower enemy HP and show message as appropriate
@@ -42,109 +67,136 @@ attackBtn.on("click", event => {
 
     event.preventDefault();
     let report = attack();
+    console.log("report - "+JSON.stringify(report));
 
     if(report.characterDead) {
       //show message that you lost
-       $("#plottext").text("you're positive for covid")
+       $("#battleText").text("You're positive for COVID. Try again.")
       //redirect to end.html in a minute
       setTimeout(function(){window.location = "/end"}, 10000);
     } else if(report.enemyDead) {
+
+      //show message
+      $("#battleText").text("The Enemy is dead! Huzzah!")
+
       //show next button
-      const newBtn = $("button")
-      newBtn.addClass("progress_plot_btn rpgui-button")
-      newBtn.text("Next");
-      $("#actionDiv").append(newBtn);
-
-      newBtn.on("click", function(event) {
-
-        event.preventDefault();
-        $.ajax({
-            method: "PUT",
-            url: "/rpg-api/levelUp",
-            data: {id: pathId}
-          })
-            .catch(err => {
-              console.log(err);
-            
-            }).then(function(){
-                window.location = "/path/" + pathId
-            })
-    });
+      $("#plot-progress-btn").show();
       
-    } else {
-      //update enemy HP
-      let newEnemyHP = parseFloat(req.body.EnemyHP) - parseFloat(characterId.attack);
+    } else {  
+      
+      $("#battleText").text(`You attacked!`);
 
-        //return new Character HP
-        res.json({EnemyHP: newEnemyHP});
+      autoEnemyTurn();            
 
-      //trigger enemy attack
-      return attack()
     }
 
 });
 
-//if end of path, do POST request to level up and redirect to choice of special skills or next level
-nextLvlBtn.on("click", event => {
-
-  event.preventDefault();
-  $.ajax({
-      method: "PUT",
-      url: "/rpg-api/levelUp",
-      data: {id: pathId}
-    })
-      .catch(err => {
-        console.log(err);
-      });
-
-});
-
-
 function attack() {
 
   //Get Attack
+  let attackPts = $("#showAttack").text();
   
   //Get Enemy HP
+  let enemyHP = $("#boss-hp").attr("current_health");
+
+  //get full health of enemy
+  let fullHealth = $("#boss-hp").attr("full_health");
   
   //Subtracts attack pts of character from enemy HP
+  let newEnemyHP = parseFloat(enemyHP) - parseFloat(attackPts);
+
+  //update enemy hp
+  $("#boss-hp").attr("current_health", newEnemyHP);
   
+  //return report of who isDead and how much enemy HP is left
+  //ex. { characterDead: true, enemyDead: false, enemyHP: 30 }
+  if(newEnemyHP <= 0) {
+    return {characterDead: false, enemyDead: true, enemyHP: newEnemyHP}; 
+  } 
+
+    let healthPerc = newEnemyHP/parseFloat(fullHealth);
+
+    var progress = document.getElementById("boss-hp");
+    RPGUI.set_value(progress, healthPerc);
+
+    return {characterDead: false, enemyDead: false, enemyHP: newEnemyHP}; 
   
-      //return report of who isDead and how much enemy HP is left
-      //ex. { characterDead: true, enemyDead: false, enemyHP: 30 }
 
 }
 
 function enemysTurn() {
 
       //get Enemy class ID to send in request as enemyId
-      const enemyId = ""
-      const characterHp = ""
-      //get characterHP to send in request as characterHP
+      const enemyId = $("#enemyId").text();
+      const enemyAttackPts = $("#boss-attack").text();
 
-      //do post to /rpg-api/users/takeDamage and it should return new Character HP
-        event.preventDefault();
-        $.ajax({
-            method: "POST",
-            url: "/rpg-api/users/takeDamage",
-            data: {enemyId: enemyId,
-            characterHP: characterHp}
-          }).then(function(characterObj){
-              //change characterHp on the screen to .charecterObj.characterHP
-              //return report of who isDead and how much character HP is left
-              //ex. { characterDead: true, enemyDead: false, characterHP: 30 }
-              if(characterObj.characterHP <= 0){
-                return { characterDead: true, enemyDead: false, characterHP: characterObj.characterHP}
-              } 
-              else 
-              {
-                return { characterDead: true, enemyDead: false, characterHP: characterObj.characterHP}
-              }
-          })
-            .catch(err => {
-              console.log(err);
-            });
+      //get characterHP to send in request as characterHP
+      const characterHp = $("#your-hp").attr("current_health");
+
+      //calculate and return new Character HP
+      let newCharacterHP = parseFloat(characterHp) - parseFloat(enemyAttackPts);
+
+      $("#your-hp").attr("current_health", newCharacterHP);
+ 
+      //change characterHp on the screen to newCharacterHP
+      //return report of who isDead and how much character HP is left
+      //ex. { characterDead: true, enemyDead: false, characterHP: 30 }
+      if(newCharacterHP <= 0){
+        return { characterDead: true, enemyDead: false, characterHP: newCharacterHP}
+      } 
+      else 
+      {
+        return { characterDead: false, enemyDead: false, characterHP: newCharacterHP}
+      }
+   
+    }
+
+
+    function autoEnemyTurn() {
+
+      setTimeout(function() { 
+        
+        $("#battleText").text(`Enemy attacked!`); 
+  
+        //trigger enemy attack
+        let enemyReport  = enemysTurn();
+        console.log("enemy report - "+JSON.stringify(enemyReport));
+  
+        if(enemyReport.characterDead) {
+            //show message that you lost
+            $("#battleText").text("You're positive for COVID. Try again.")
+            //redirect to end.html in a minute
+            setTimeout(function(){window.location = "/end"}, 10000);
+        } else  {
+          $("#battleText").text(`Enemy attacked! You took damage! You are down to ${enemyReport.characterHP} health. It's your move.`);
+        }
+    
+      }, 2000);
+
     }
 
 tryagainBtn.on("click", function(res) {
   res.redirect("/welcome");
-})
+});
+
+//if end of path, do POST request to level up and redirect to plot
+$("#plot-progress-btn").on("click", function(event) {
+
+  event.preventDefault();
+
+  $.ajax({
+      method: "PUT",
+      url: "/rpg-api/levelUp",
+      data: {id: pathId}
+    }).then(() => {
+
+      console.log('finished level up');
+      window.location = "/plot/" + pathId;
+
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+});
