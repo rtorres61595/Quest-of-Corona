@@ -23,9 +23,9 @@ const plotArr = [
     }
 ];
 
-const forestImg = '../public/images/';
-const caveImg = '../public/images/';
-const deeperCaveImg = '../public/images/';
+const forestImg = '../public/images/plot1Bkg.png';
+const caveImg = '../public/images/plot2Bkg.png';
+const deeperCaveImg = '../public/images/plot3Bkg.png';
 
 let textBlockNum = 1;
 let textBlock = 'textBlock1';
