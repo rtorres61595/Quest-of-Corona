@@ -20,7 +20,21 @@
             <hr class="golden" />
 
           <!-- choose a character screen -->
-            <div id="choosechar">
+          <!--  -->
+
+          <!-- if logged in, show Character image and stats -->
+
+            <div> 
+            {{#if pathId}}
+             <div>
+                  <h3>{{username}} the {{characterName}}</h3>
+                  <ul>
+                    <li>Health {{health}}</li>
+                    <li>Attack{{attack}}</li>
+                  </ul>
+                </div>
+             {{else}}
+             <div id="choosechar">
                 <form class="create-character">
               <h3>Create Character</h3>
               <p>Choose your character class</p>
@@ -45,8 +59,10 @@
                <hr>
               </form>
             </div>
+            {{/if}}
 
-          <!-- if logged in, show Character image and stats -->
+            
+
 
 
 

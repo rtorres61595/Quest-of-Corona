@@ -27,6 +27,7 @@ healBtn.on("click", event => {
     //0 left on heal
     $("#showHeal").text("0 left");
 
+
     //update hp bar
     var progress = $(".rpgui-progress .green");
     progress.css("width", "100%");
@@ -145,6 +146,7 @@ function enemysTurn(damagePtsOverride) {
 
       //get Enemy class ID to send in request as enemyId
       const enemyId = $("#enemyId").text();
+
       let enemyAttackPts = $("#boss-attack").text();
 
       //means you blocked
@@ -169,7 +171,7 @@ function enemysTurn(damagePtsOverride) {
         var progress = $(".rpgui-progress .green");
         progress.css("width", healthPerc*100+"%");
       }
-
+  
       $("#your-hp").attr("current_health", newCharacterHP);
  
       //change characterHp on the screen to newCharacterHP
@@ -186,6 +188,7 @@ function enemysTurn(damagePtsOverride) {
     }
 
 
+
     function autoEnemyTurn(damagePtsOverride) {
 
       setTimeout(function() { 
@@ -194,6 +197,7 @@ function enemysTurn(damagePtsOverride) {
   
         //trigger enemy attack
         let enemyReport  = enemysTurn(damagePtsOverride);
+
         console.log("enemy report - "+JSON.stringify(enemyReport));
   
         if(enemyReport.characterDead) {
@@ -241,7 +245,6 @@ $("#plot-progress-btn").on("click", function(event) {
       } else {
         window.location = "/plot/" + pathId;
       }
-
     })
     .catch(err => {
       console.log(err);
