@@ -305,18 +305,29 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
           }
         }).then(pathInProgress => {
           
-            res.render("battle", {
-              userId: pathInProgress.user_id, 
-              pathId: pathInProgress.id, 
-              attack: pathInProgress.attack, 
-              health: pathInProgress.health, 
-              heal: pathInProgress.heal,
-              block: pathInProgress.block,
-              characterClassId: pathInProgress.character_class_id,
-              currentPath: pathInProgress.currentPath,
-              enemyId: enemyId,
-              enemyName: nameOfEnemy,
-              enemyImgPath: enemyImage
+          let battleObj = {
+            userId: pathInProgress.user_id, 
+            pathId: pathInProgress.id, 
+            attack: pathInProgress.attack, 
+            health: pathInProgress.health, 
+            heal: pathInProgress.heal,
+            block: pathInProgress.block,
+            characterClassId: pathInProgress.character_class_id,
+            currentPath: pathInProgress.currentPath,
+            enemyId: enemyId,
+            enemyName: nameOfEnemy,
+            enemyImgPath: enemyImage
+          };
+
+            db.Enemy.findOne({
+              where: {
+                id: enemyId
+              }
+            }).then((enemyFound) => {
+
+              battleObj.enemyHealth = enemyFound.health;
+              res.render("battle", battleObj);
+
             });
           
         });
