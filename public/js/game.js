@@ -11,6 +11,14 @@ const pathId = localStorage.getItem("pathId");
 healBtn.on("click", event => {
 
     event.preventDefault();
+
+    //prevents user from abusing heals
+    if($("#showHeal").text().trim() == "0 left") {
+      $("#battleText").text("You used up all your heals.");
+      autoEnemyTurn();
+      return;
+    }
+
     $.ajax({
         method: "PUT",
         url: "/rpg-api/users/heal",
@@ -26,7 +34,6 @@ healBtn.on("click", event => {
 
     //0 left on heal
     $("#showHeal").text("0 left");
-
 
     //update hp bar
     var progress = $(".rpgui-progress .green");
@@ -44,10 +51,11 @@ healBtn.on("click", event => {
 defendBtn.on("click", event => {
   
     event.preventDefault();
-
-    if( $("#showBlock").text() === '0 left') {    
-      $("#battleText").text("You cannot block again!");
+    //prevents user from abusing heals
+    if( $("#showBlock").text().trim() == '0 left') {    
+      $("#battleText").text("You cannot block again! You have no shield.");
       autoEnemyTurn();
+      return;
     }
 
     $.ajax({
