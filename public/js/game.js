@@ -214,17 +214,9 @@ function enemysTurn(damagePtsOverride) {
             var progress = $(".rpgui-progress .green");
             progress.css("width", "0%");
           
-            $.ajax({
-              method: 'PUT',
-              url: "/rpg-api/reset",
-              data: {id: pathId}
-            }).then(() => {
-
               //redirect to end.html in a minute
               setTimeout(function(){window.location = "/end"}, 5000);
 
-            });
-            
         } else if(damagePtsOverride === 0) {
           
           $("#battleText").text(`You took no damage but your shield has broken! It's your move now.`);
