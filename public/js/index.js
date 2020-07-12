@@ -40,7 +40,11 @@ $(document).ready(() => {
     }).then(function(){
       loginUser(username, password);
     })
-    .catch(handleLoginErr);
+    .catch(err => {
+      console.log(err);
+      alert(err.responseJSON.errors[0]['message']);
+    });
+
   }
 
   function handleLoginErr(err) {
@@ -83,6 +87,9 @@ $(document).ready(() => {
     })
       .catch(err => {
         console.log(err);
+        if(err.responseText == 'Unauthorized') {
+          alert("Invalid Username or Password!");
+        }
       });
   }
 });

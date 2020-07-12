@@ -8,6 +8,10 @@ footer {
   max-height: 50%;
 }
 
+hr.golden {
+  margin-top:0 !important;
+}
+
 h1{
   font-family:'Press Start 2P', cursive;
   text-align: center;
@@ -150,7 +154,7 @@ button{
 
 #welcomediv{
   text-align: center;
-  margin-top:180px;
+  margin-top:145px;
 }
 
 #choosechar{
@@ -172,6 +176,8 @@ button{
   width: 87%;
   height: 30em;
   margin-left: 10px;
+  font-size: 1.2em;
+  line-height: 2;
 }
 
 #plotBox {
@@ -179,7 +185,7 @@ button{
   display: block;
   width: 99%;
   position: absolute;
-  bottom: 5%;
+  bottom: 1%;
   right: 0.5%;
 }
 
@@ -214,6 +220,10 @@ button{
   height: 20%;
 }
 
+#bossdiv h1 {
+  margin-top:5px;
+}
+
 #hp-bar{
   position: absolute;
   left: 0%;
@@ -221,9 +231,6 @@ button{
 
 #bossimage{
   width: 100%;
-  position: absolute;
-  top:170%;
-  max-height:30em;
 }
 
 li{
@@ -256,3 +263,6 @@ h2{
   text-align: center;
 }
 
+.rpgui-cursor-default {
+  overflow-y:scroll !important;
+}

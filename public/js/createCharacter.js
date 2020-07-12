@@ -8,8 +8,15 @@ startBtn.on("click", (event) => {
 
   let pathId = startBtn.attr("path");
   let userId = startBtn.attr("user");
-  console.log(`path id - ${pathId}`);
-  console.log(`user id - ${userId}`);
+  //console.log(`path id - ${pathId}`);
+  //console.log(`user id - ${userId}`);
+
+  //reset stats
+  $.ajax({
+    method: 'PUT',
+    url: "/rpg-api/reset",
+    data: {id: pathId}
+  });
 
   //saving userId to localStorage
   localStorage.setItem("userId", userId);

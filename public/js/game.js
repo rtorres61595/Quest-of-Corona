@@ -11,6 +11,14 @@ const pathId = localStorage.getItem("pathId");
 healBtn.on("click", event => {
 
     event.preventDefault();
+
+    //prevents user from abusing heals
+    if($("#showHeal").text().trim() == "0 left") {
+      $("#battleText").text("You used up all your heals.");
+      autoEnemyTurn();
+      return;
+    }
+
     $.ajax({
         method: "PUT",
         url: "/rpg-api/users/heal",
@@ -26,7 +34,6 @@ healBtn.on("click", event => {
 
     //0 left on heal
     $("#showHeal").text("0 left");
-
 
     //update hp bar
     var progress = $(".rpgui-progress .green");
@@ -44,10 +51,11 @@ healBtn.on("click", event => {
 defendBtn.on("click", event => {
   
     event.preventDefault();
-
-    if( $("#showBlock").text() === '0 left') {    
-      $("#battleText").text("You cannot block again!");
+    //prevents user from abusing heals
+    if( $("#showBlock").text().trim() == '0 left') {    
+      $("#battleText").text("You cannot block again! You have no shield.");
       autoEnemyTurn();
+      return;
     }
 
     $.ajax({
@@ -187,8 +195,6 @@ function enemysTurn(damagePtsOverride) {
    
     }
 
-
-
     function autoEnemyTurn(damagePtsOverride) {
 
       setTimeout(function() { 
@@ -202,14 +208,15 @@ function enemysTurn(damagePtsOverride) {
   
         if(enemyReport.characterDead) {
             //show message that you lost
-            $("#battleText").text("You're positive for COVID. Try again.");
+            $("#battleText").text("You're positive for COVID :<");
 
             //update character hp bar
             var progress = $(".rpgui-progress .green");
             progress.css("width", "0%");
+          
+              //redirect to end.html in a minute
+              setTimeout(function(){window.location = "/end"}, 5000);
 
-            //redirect to end.html in a minute
-            setTimeout(function(){window.location = "/end"}, 10000);
         } else if(damagePtsOverride === 0) {
           
           $("#battleText").text(`You took no damage but your shield has broken! It's your move now.`);
