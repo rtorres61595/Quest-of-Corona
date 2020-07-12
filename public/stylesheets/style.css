@@ -8,6 +8,10 @@ footer {
   max-height: 50%;
 }
 
+hr.golden {
+  margin-top:0 !important;
+}
+
 h1{
   font-family:'Press Start 2P', cursive;
   text-align: center;
@@ -259,3 +263,6 @@ h2{
   text-align: center;
 }
 
+.rpgui-cursor-default {
+  overflow-y:scroll !important;
+}
